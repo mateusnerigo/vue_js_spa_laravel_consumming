@@ -1,4 +1,6 @@
-# vue_js_spa_laravel_consuming
+# VueJS SPA for Laravel API Consuming
+This project consumes and implements a Laravel API.<br>
+Available in https://github.com/mateusnerigo/salgados_laravel_project.
 
 ## Project setup
 ```
