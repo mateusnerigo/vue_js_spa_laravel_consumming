@@ -2,9 +2,10 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/salePoints">Sale points</router-link> |
-    <router-link to="/salePoints">Clients</router-link> |
-    <router-link to="/salePoints">Products</router-link> |
-    <router-link to="/salePoints">Sales</router-link> 
+    <router-link to="/clients">Clients</router-link> |
+    <router-link to="/products">Products</router-link> |
+    <router-link to="/sales">Sales</router-link> |
+    <router-link to="/login">Login</router-link>
   </nav>
   <router-view/>
 </template>

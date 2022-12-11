@@ -3,7 +3,12 @@ import {
   createWebHistory
 } from 'vue-router'
 
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/HomeView.vue';
+import LoginView from '../views/login/LoginView.vue';
+import SalePointsView from '../views/salePoints/SalePointsView.vue';
+import ClientsView from '../views//clients/ClientsView.vue';
+import ProductsView from '../views/products/ProductsView.vue';
+import SalesView from '../views/sales/SalesView.vue';
 
 const routes = [
   {
@@ -12,24 +17,29 @@ const routes = [
     component: HomeView
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => LoginView
+  },
+  {
     path: '/salePoints',
     name: 'SalePoints',
-    component: () => import(/* webpackChunkName: "salePoints" */ '../views/salePoints/SalePointsView.vue')
+    component: () => SalePointsView
   },
   {
     path: '/clients',
     name: 'Clients',
-    component: () => import(/* webpackChunkName: "clients" */ '../views/clients/ClientsView.vue')
+    component: () => ClientsView
   },
   {
     path: '/products',
     name: 'Products',
-    component: () => import(/* webpackChunkName: "products" */ '../views/products/ProductsView.vue')
+    component: () => ProductsView
   },
   {
     path: '/sales',
     name: 'Sales',
-    component: () => import(/* webpackChunkName: "sales" */ '../views/sales/SalesView.vue')
+    component: () => SalesView
   }
 ]
 

@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'SalePointsView',
     data() {
@@ -16,6 +18,10 @@ export default {
             msgType: null,
             salePoints: []
         }
+    },
+
+    mounted() {
+
     },
 
     created() {
