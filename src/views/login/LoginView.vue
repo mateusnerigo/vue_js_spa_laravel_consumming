@@ -38,6 +38,8 @@
 import axios from 'axios';
 import Message from '@/components/Message.vue';
 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+axios.defaults.withCredentials = true;
+axios.defaults.headers.post['Access-Control-Allow-Credentials'] = '*';
 
 export default {
 	components: { Message },
@@ -47,17 +49,17 @@ export default {
             userName: '',
             password: '',
             messageType: '',
-            messageText: ''
+            messageText: '',
+            loginData: ''
         }
     },
 
     mounted() {
-        axios.get('http://localhost:8000/sanctum/csrf-cookie');
     },
 
     methods: {
         async login() {
-            let login = await axios.post(
+            await axios.post(
                 'http://localhost:8000/api/login',
                 {
                     data: JSON.stringify({
@@ -65,11 +67,15 @@ export default {
                         password: this.password
                     })
                 },
-            );
+            ).then(response => {
+                console.log(response)
+                this.login = response.data;
 
-            if (login.data.msg != '') {
-                this.messageText = login.data.msg;
-                this.messageType = login.data.type;
+            });
+
+            if (this.login.msg != '') {
+                this.messageText = this.login.msg;
+                this.messageType = this.login.type;
             }
 
         }

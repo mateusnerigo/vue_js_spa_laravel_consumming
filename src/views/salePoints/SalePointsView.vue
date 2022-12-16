@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     name: 'SalePointsView',
     data() {
@@ -21,17 +19,10 @@ export default {
     },
 
     mounted() {
-
     },
 
     created() {
-        fetch('http://localhost:8000/api/salePoints')
-            .then(response => response.json())
-            .then(res => {
-                this.msg = res.msg;
-                this.msgType = res.type;
-                this.salePoints = res.data;
-            });
+        
     }
 }
 </script>

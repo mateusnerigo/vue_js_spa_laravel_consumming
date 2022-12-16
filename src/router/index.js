@@ -14,32 +14,32 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => LoginView
+    component: LoginView
   },
   {
     path: '/salePoints',
     name: 'SalePoints',
-    component: () => SalePointsView
+    component: SalePointsView
   },
   {
     path: '/clients',
     name: 'Clients',
-    component: () => ClientsView
+    component: ClientsView
   },
   {
     path: '/products',
     name: 'Products',
-    component: () => ProductsView
+    component: ProductsView
   },
   {
     path: '/sales',
     name: 'Sales',
-    component: () => SalesView
+    component: SalesView
   }
 ]
 
