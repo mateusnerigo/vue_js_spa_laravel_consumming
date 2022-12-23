@@ -25,6 +25,8 @@
 
 <script>
 import axios from 'axios';
+import Cookie from 'js-cookie';
+
 import Message from '@/components/Message.vue';
 import InputGroup from '@/components/InputGroup.vue';
 
@@ -63,6 +65,7 @@ export default {
     },
 
     mounted() {
+        Cookie.remove(process.env.VUE_APP_COOKIE_NAME);
     },
 
     watch: {
@@ -71,6 +74,11 @@ export default {
                 receivedLoginData.data.access_token &&
                 receivedLoginData.data.expires_in > 0
             ) {
+                Cookie.set(
+                    process.env.VUE_APP_COOKIE_NAME,
+                    `${receivedLoginData.data.token_type} ${receivedLoginData.data.access_token}`
+                );
+
                 this.$router.push('/');
             }
 
