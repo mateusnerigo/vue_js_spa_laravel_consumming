@@ -1,19 +1,21 @@
 import {
   createRouter,
   createWebHistory
-} from 'vue-router'
+} from 'vue-router';
 
-import HomeView from '../views/HomeView.vue';
-import LoginView from '../views/LoginView.vue';
-import SalePointsView from '../views/salePoints/SalePointsView.vue';
-import ClientsView from '../views//clients/ClientsView.vue';
-import ProductsView from '../views/products/ProductsView.vue';
-import SalesView from '../views/sales/SalesView.vue';
+import Guard from '@/services/middleware';
+
+import HomeView from '@/views/HomeView.vue';
+import LoginView from '@/views/LoginView.vue';
+import SalePointsView from '@/views/salePoints/SalePointsView.vue';
+import ClientsView from '@/views//clients/ClientsView.vue';
+import ProductsView from '@/views/products/ProductsView.vue';
+import SalesView from '@/views/sales/SalesView.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: HomeView,
   },
   {
@@ -24,22 +26,26 @@ const routes = [
   {
     path: '/salePoints',
     name: 'SalePoints',
-    component: SalePointsView
+    component: SalePointsView,
+    beforeEnter: Guard.auth,
   },
   {
     path: '/clients',
     name: 'Clients',
-    component: ClientsView
+    component: ClientsView,
+    beforeEnter: Guard.auth,
   },
   {
     path: '/products',
     name: 'Products',
-    component: ProductsView
+    component: ProductsView,
+    beforeEnter: Guard.auth,
   },
   {
     path: '/sales',
     name: 'Sales',
-    component: SalesView
+    component: SalesView,
+    beforeEnter: Guard.auth,
   }
 ]
 

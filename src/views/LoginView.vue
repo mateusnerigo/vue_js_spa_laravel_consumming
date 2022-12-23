@@ -65,7 +65,10 @@ export default {
     },
 
     mounted() {
-        Cookie.remove(process.env.VUE_APP_COOKIE_NAME);
+        Cookie.remove(
+            process.env.VUE_APP_COOKIE_TOKEN_NAME,
+            { sameSite: 'strict' }
+        );
     },
 
     watch: {
@@ -75,8 +78,15 @@ export default {
                 receivedLoginData.data.expires_in > 0
             ) {
                 Cookie.set(
-                    process.env.VUE_APP_COOKIE_NAME,
-                    `${receivedLoginData.data.token_type} ${receivedLoginData.data.access_token}`
+                    process.env.VUE_APP_COOKIE_TOKEN_NAME,
+                    receivedLoginData.data.access_token,
+                    { sameSite: 'strict' }
+                );
+
+                Cookie.set(
+                    process.env.VUE_APP_COOKIE_TOKEN_TYPE_NAME,
+                    receivedLoginData.data.token_type,
+                    { sameSite: 'strict' }
                 );
 
                 this.$router.push('/');
@@ -94,7 +104,7 @@ export default {
             this.loginData = '';
 
             await axios.post(
-                process.env.VUE_APP_ROOT_API + '/login',
+                `${process.env.VUE_APP_ROOT_API}/login`,
                 {
                     data: JSON.stringify({
                         userName: this.userName,
