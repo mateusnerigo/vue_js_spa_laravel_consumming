@@ -91,6 +91,7 @@ export default {
                 ]);
 
                 this.$router.push('/loginSuccess');
+                return;
             }
 
             if (receivedLoginData.msg != '') {

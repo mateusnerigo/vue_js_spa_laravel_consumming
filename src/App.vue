@@ -1,42 +1,49 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/salePoints">Sale points</router-link> |
-    <router-link to="/clients">Clients</router-link> |
-    <router-link to="/products">Products</router-link> |
-    <router-link to="/sales">Sales</router-link> |
-    <router-link v-if="loginButtonText" to="/logout">Logout</router-link>
+    <router-link to="/">Home</router-link>
+
+    <router-link v-show="isLoggedIn" to="/salePoints">Sale points</router-link>
+    <router-link v-show="isLoggedIn" to="/clients">Clients</router-link>
+    <router-link v-show="isLoggedIn" to="/products">Products</router-link>
+    <router-link v-show="isLoggedIn" to="/sales">Sales</router-link>
+
+    <router-link v-if="isLoggedIn" to="/logout">Logout</router-link>
     <router-link v-else to="/login">Login</router-link>
   </nav>
 
-  <router-view/>
+  <router-view class="router-view" v-slot="{ Component }">
+    <Transition name="router-transition" mode="out-in">
+      <component :is="Component" />
+    </Transition>
+  </router-view>
 </template>
 
-<script >
+<script>
 import generalFunctions from '@/helpers/generalFunctions';
-
-export default ({})
+export default ({
+  data() {
+    return {
+      isLoggedIn: generalFunctions
+        .hasCookieByName(process.env.VUE_APP_COOKIE_TOKEN_NAME)
+    }
+  }
+})
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-nav {
-  padding: 30px;
+.router-transition-enter-active,
+.router-transition-leave-active {
+  transition: opacity 0.5s ease;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.router-transition-enter-from,
+.router-transition-leave-to {
+  opacity: 0;
 }
 </style>

@@ -14,7 +14,7 @@ export default {
       generalFunctions.removeAppCookies();
 
       setTimeout(() => {
-        window.location.replace('/login');
+        window.location.replace('/');
       }, 1000);
     }
 }
