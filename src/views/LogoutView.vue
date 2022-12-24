@@ -1,13 +1,25 @@
 <template>
   <div class="logout-container">
-    <p>Deslogado</p>
+    <p>Usuário deslogado com sucesso!</p>
   </div>
 </template>
 
 <script>
+import generalFunctions from '@/helpers/generalFunctions';
+
 export default {
-    name: 'LogoutVies',
+    name: 'LogoutView',
+
+    mounted() {
+      generalFunctions.removeAppCookies();
+
+      setTimeout(() => {
+        window.location.replace('/login');
+      }, 1000);
+    }
 }
+
+
 </script>
 
 <style lang="scss" scoped>

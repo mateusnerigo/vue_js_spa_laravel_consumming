@@ -7,6 +7,8 @@ import Guard from '@/services/middleware';
 
 import HomeView from '@/views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
+import LoginSuccessView from '@/views/LoginSuccessView.vue';
+import LogoutView from '@/views/LogoutView.vue';
 import SalePointsView from '@/views/salePoints/SalePointsView.vue';
 import ClientsView from '@/views//clients/ClientsView.vue';
 import ProductsView from '@/views/products/ProductsView.vue';
@@ -16,12 +18,22 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: HomeView,
+    component: HomeView
   },
   {
     path: '/login',
     name: 'Login',
     component: LoginView
+  },
+  {
+    path: '/loginSuccess',
+    name: 'LoginSuccess',
+    component: LoginSuccessView
+  },
+  {
+    path: '/logout',
+    name: 'LogoutView',
+    component: LogoutView
   },
   {
     path: '/salePoints',

@@ -25,10 +25,13 @@
 
 <script>
 import axios from 'axios';
-import Cookie from 'js-cookie';
+
+import generalFunctions from '@/helpers/generalFunctions';
 
 import Message from '@/components/Message.vue';
 import InputGroup from '@/components/InputGroup.vue';
+
+const loginRoute = `${process.env.VUE_APP_ROOT_API}/login`;
 
 export default {
     name: 'LoginView',
@@ -64,11 +67,10 @@ export default {
         }
     },
 
-    mounted() {
-        Cookie.remove(
-            process.env.VUE_APP_COOKIE_TOKEN_NAME,
-            { sameSite: 'strict' }
-        );
+    created() {
+        if (generalFunctions.hasCookieByName(process.env.VUE_APP_COOKIE_TOKEN_NAME)) {
+            this.$router.push('/');
+        }
     },
 
     watch: {
@@ -77,19 +79,18 @@ export default {
                 receivedLoginData.data.access_token &&
                 receivedLoginData.data.expires_in > 0
             ) {
-                Cookie.set(
-                    process.env.VUE_APP_COOKIE_TOKEN_NAME,
-                    receivedLoginData.data.access_token,
-                    { sameSite: 'strict' }
-                );
+                generalFunctions.setAppCookies([
+                    {
+                        'name': process.env.VUE_APP_COOKIE_TOKEN_NAME,
+                        'value': receivedLoginData.data.access_token
+                    },
+                    {
+                        'name': process.env.VUE_APP_COOKIE_TOKEN_TYPE_NAME,
+                        'value': receivedLoginData.data.token_type
+                    }
+                ]);
 
-                Cookie.set(
-                    process.env.VUE_APP_COOKIE_TOKEN_TYPE_NAME,
-                    receivedLoginData.data.token_type,
-                    { sameSite: 'strict' }
-                );
-
-                this.$router.push('/');
+                this.$router.push('/loginSuccess');
             }
 
             if (receivedLoginData.msg != '') {
@@ -104,7 +105,7 @@ export default {
             this.loginData = '';
 
             await axios.post(
-                `${process.env.VUE_APP_ROOT_API}/login`,
+                loginRoute,
                 {
                     data: JSON.stringify({
                         userName: this.userName,

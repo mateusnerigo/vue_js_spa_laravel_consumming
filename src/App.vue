@@ -5,16 +5,17 @@
     <router-link to="/clients">Clients</router-link> |
     <router-link to="/products">Products</router-link> |
     <router-link to="/sales">Sales</router-link> |
-    <router-link to="/login">Login</router-link>
+    <router-link v-if="loginButtonText" to="/logout">Logout</router-link>
+    <router-link v-else to="/login">Login</router-link>
   </nav>
+
   <router-view/>
 </template>
 
 <script >
-export default ({
+import generalFunctions from '@/helpers/generalFunctions';
 
-  
-})
+export default ({})
 </script>
 
 <style lang="scss">
