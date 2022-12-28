@@ -90,6 +90,7 @@ export default {
                     }
                 ]);
 
+                this.$store.commit('isAuthenticated');
                 this.$router.push('/loginSuccess');
                 return;
             }

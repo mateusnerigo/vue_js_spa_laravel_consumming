@@ -10,8 +10,8 @@ export default {
 
     mounted() {
       setTimeout(() => {
-        window.location.replace('/');
-        // this.$router.push('/')
+        // window.location.replace('/');
+        this.$router.push('/')
       }, 1000);
     }
 }

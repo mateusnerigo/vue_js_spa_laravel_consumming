@@ -26,7 +26,7 @@ export default {
         // if it is not valid, redirects to login
         if(!(response.data.data.hasAccess ?? 0)) {
             generalFunctions.removeAppCookies();
-            
+
             next('/login');
             return;
         }

@@ -10,6 +10,8 @@ export default {
         cookiesToRemove.forEach(cookieToRemove => {
             Cookie.remove(cookieToRemove, { sameSite: 'strict' });
         });
+
+        this.$store.commit('isAuthenticated');
     },
 
     setAppCookies(cookiesToSet) {
@@ -24,7 +26,6 @@ export default {
 
     /**
      * Verifies a cookie by its name
-     * 
      * @param   string cookieName A cookie name to verify
      * @returns boolean
      */

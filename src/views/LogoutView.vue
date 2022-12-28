@@ -14,8 +14,7 @@ export default {
       generalFunctions.removeAppCookies();
 
       setTimeout(() => {
-        window.location.replace('/');
-        // this.$router.push('/')
+        this.$router.push('/')
       }, 1000);
     }
 }
