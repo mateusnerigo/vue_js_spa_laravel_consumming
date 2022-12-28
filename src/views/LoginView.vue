@@ -1,9 +1,9 @@
 <template>
     <div class="login-container">
         <Message
-            v-if="((messageText != '') && (messageType != ''))"
-            :messageText="messageText"
-            :messageType="messageType"
+            v-if="((this.messageText != '') && (this.messageType != ''))"
+            :messageText="this.messageText"
+            :messageType="this.messageType"
         />
 
         <h1>Login</h1>

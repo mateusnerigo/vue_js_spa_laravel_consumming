@@ -22,6 +22,12 @@ export default {
         })
     },
 
+    /**
+     * Verifies a cookie by its name
+     * 
+     * @param   string cookieName A cookie name to verify
+     * @returns boolean
+     */
     hasCookieByName(cookieName) {
         if (Cookie.get(cookieName)) {
             return true;
