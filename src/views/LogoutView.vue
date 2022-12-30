@@ -12,6 +12,7 @@ export default {
 
     mounted() {
       generalFunctions.removeAppCookies();
+      this.$store.commit('isAuthenticated');
 
       setTimeout(() => {
         this.$router.push('/')

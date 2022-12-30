@@ -10,8 +10,6 @@ export default {
         cookiesToRemove.forEach(cookieToRemove => {
             Cookie.remove(cookieToRemove, { sameSite: 'strict' });
         });
-
-        this.$store.commit('isAuthenticated');
     },
 
     setAppCookies(cookiesToSet) {

@@ -26,6 +26,7 @@ export default {
         // if it is not valid, redirects to login
         if(!(response.data.data.hasAccess ?? 0)) {
             generalFunctions.removeAppCookies();
+            this.$store.commit('isAuthenticated');
 
             next('/login');
             return;

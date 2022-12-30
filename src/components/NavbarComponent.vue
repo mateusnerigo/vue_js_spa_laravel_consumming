@@ -7,7 +7,7 @@
             <router-link to="/clients">Clients</router-link>
             <router-link to="/products">Products</router-link>
             <router-link to="/sales">Sales</router-link>
-            <router-link to="/logout">Logout Direto</router-link>
+            <router-link to="/logout">Logout</router-link>
         </div>
 
         <router-link v-else to="/login">Login</router-link>
@@ -20,6 +20,7 @@ import { mapGetters } from 'vuex';
 
 export default {
     name: 'NavbarComponent',
+
     created() {
         this.$store.commit('isAuthenticated');
     },
