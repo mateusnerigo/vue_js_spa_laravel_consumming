@@ -1,0 +1,15 @@
+{
+  "Clients": "Clients",
+  "SalePoints": "Sale points",
+  "Products": "Products",
+  "Sales": "Sales",
+  "Logout": "Logout",
+  "Home": "Home",
+  "Login": "Login",
+  "userSuccessfullyLoggedIn": "User successfull logged in!",
+  "userSuccessfullyLoggedOut": "User successfull logged out!",
+  "username": "Username",
+  "enterUsername": "Enter username",
+  "password": "Password",
+  "enterPassword": "Enter password"
+}

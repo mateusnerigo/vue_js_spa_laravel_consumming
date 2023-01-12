@@ -1,0 +1,15 @@
+{
+  "Clients": "Clientes",
+  "SalePoints": "Pontos de venda",
+  "Products": "Produtos",
+  "Sales": "Vendas",
+  "Logout": "Sair",
+  "Home": "Página principal",
+  "Login": "Entrar",
+  "userSuccessfullyLoggedIn": "Usuário entrou com sucesso!",
+  "userSuccessfullyLoggedOut": "Usuário saiu com sucesso!",
+  "username": "Usuário",
+  "enterUsername": "Insire o nome de usuário",
+  "password": "Senha",
+  "enterPassword": "Insira a senha"
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="logout-container">
-    <p>Usuário deslogado com sucesso!</p>
+    <p>{{ $t("userSuccessfullyLoggedOut") }}</p>
   </div>
 </template>
 

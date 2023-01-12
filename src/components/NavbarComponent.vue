@@ -11,16 +11,16 @@
             <transition name="nav-fade" mode="out-in">
                 <div key="1" v-if="$store.state.isLoggedIn">
                     <!-- <router-link to="/dashboard">Dashboard</router-link> -->
-                    <router-link to="/salePoints">Sale points</router-link>
-                    <router-link to="/clients">Clients</router-link>
-                    <router-link to="/products">Products</router-link>
-                    <router-link to="/sales">Sales</router-link>
-                    <router-link to="/logout">Logout</router-link>
+                    <router-link to="/salePoints">{{ $t("SalePoints") }}</router-link>
+                    <router-link to="/clients">{{ $t("Clients") }}</router-link>
+                    <router-link to="/products">{{ $t("Products") }}</router-link>
+                    <router-link to="/sales">{{ $t("Sales") }}</router-link>
+                    <router-link to="/logout">{{ $t("Logout") }}</router-link>
                 </div>
 
                 <div key="2" v-else>
-                    <router-link to="/">Home</router-link>
-                    <router-link to="/login">Login</router-link>
+                    <router-link to="/">{{ $t("Home") }}</router-link>
+                    <router-link to="/login">{{ $t("Login") }}</router-link>
                 </div>
             </transition>
         </div>
@@ -38,21 +38,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '/src/scss/variables.scss';
+
     nav {
         display: flex;
-        direction: row;
-        flex-wrap: nowrap;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-between;
-        height: 4rem;
-        width: 100%;
+        height: 100vh;
+        width: 12rem;
+        // border: 1px solid $black;
         transition: 0.5s ease;
-        border: 1px solid black;
-        padding: 0 2rem;
+        padding: 2rem 0;
+        background: $purple;
+        box-shadow: 0px 0px 10px 2px $dark_white;
 
         .nav-logo {
             display: flex;
             justify-content: flex-start;
+            margin-bottom: 2rem;
 
             img {
                 width: 2rem;
@@ -61,16 +64,31 @@ export default {
 
         .nav-links {
             display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: flex-end;
+            flex-direction: column;
+
+            &>div {
+                display: flex;
+                flex-direction: column;
+            }
 
             a {
                 text-decoration: none;
-                padding: 0.5rem 0.5rem;
-                margin: 0 0.1rem;
-                color: black;
+                padding: 0.5rem;
+                margin-bottom: 0.5rem;
+                // border: 1px solid black;
+                color: $white;
                 border-radius: 0.2rem;
+
+                font-family: 'Lato', sans-serif;
+                font-size: 1rem;
+                font-weight: 600;
+
+                transition: .3s ease;
+                word-wrap: normal;
+
+                &:hover, &:focus, &:active {
+                    color: $light_black;
+                }
             }
         }
     }

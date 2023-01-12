@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Sale points</h1>
+        <h1>{{ $t("SalePoints") }}</h1>
         <div v-for="salePoint in salePoints" :key="salePoint.idSalePoints">
             {{ salePoint.salePointName }}
         </div>
@@ -22,7 +22,7 @@ export default {
     },
 
     created() {
-        
+
     }
 }
 </script>

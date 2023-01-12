@@ -6,7 +6,7 @@
             :messageType="this.messageType"
         />
 
-        <h1>Login</h1>
+        <h1>{{ $t("Login") }}</h1>
         <div class="login-form-container">
             <InputGroup
                 v-bind="inputGroups.userNameInput"
@@ -18,7 +18,7 @@
                 v-model="password"
             />
 
-        <a href="#" @click="login">Login</a>
+        <a href="#" @click="login">{{ $t("Login") }}</a>
         </div>
     </div>
 </template>
@@ -53,15 +53,15 @@ export default {
                     name: 'userName',
                     type: 'text',
                     id: 'login-form-username',
-                    label: 'Username',
-                    placeholder: 'Enter username'
+                    label: this.$t("username"),
+                    placeholder: this.$t("enterUsername")
                 },
                 passwordInput: {
                     name: 'password',
                     type: 'password',
                     id: 'login-form-password',
-                    label: 'Password',
-                    placeholder: 'Enter password'
+                    label: this.$t("password"),
+                    placeholder: this.$t("enterPassword")
                 }
             }
         }

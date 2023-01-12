@@ -1,6 +1,6 @@
 <template>
   <div class="login-success-container">
-    <p>Usuário logado com sucesso!</p>
+    <p>{{ $t('userSuccessfullyLoggedIn') }}</p>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-    <h1>Sales</h1>
+    <h1>{{ $t("Sales") }}</h1>
 </template>
 
 <script>

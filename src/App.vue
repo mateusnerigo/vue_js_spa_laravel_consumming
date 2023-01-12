@@ -19,20 +19,30 @@ export default ({
 </script>
 
 <style lang="scss">
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
-.router-transition-enter-active,
-.router-transition-leave-active {
-  transition: 0.5s ease;
-}
+  @import '/src/scss/variables.scss';
 
-.router-transition-enter-from,
-.router-transition-leave-to {
-  opacity: 0;
-  transform: translateX(50px);
-}
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  #app {
+    height: 100vh;
+    background: $white;
+    overflow-x: hidden;
+  }
+
+  .router-transition-enter-active,
+  .router-transition-leave-active {
+    transition: 0.5s ease;
+  }
+
+  .router-transition-enter-from,
+  .router-transition-leave-to {
+    opacity: 0;
+    transform: translateX(50px);
+  }
 </style>
