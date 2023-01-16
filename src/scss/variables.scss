@@ -1,6 +1,8 @@
 $black: #2c2c54;
 $light_black: #40407a;
 $white: #f7f1e3;
+$transparent_white: #f7f1e3aa;
+$transparent_dark_white: #d1ccc0aa;
 $dark_white: #d1ccc0;
 $gray: #aaa69d;
 $dark_gray: #84817a;
@@ -18,3 +20,8 @@ $beige: #ffda79;
 $dark_beige: #ccae62;
 $purple: #706fd3;
 $dark_purple: #474787;
+
+$sidebar_wraped_width: calc(2rem + 32px);
+$sidebar_width: 300px;
+
+$page_width: calc(100vw - $sidebar_wraped_width);

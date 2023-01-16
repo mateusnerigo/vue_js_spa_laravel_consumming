@@ -6,6 +6,8 @@
             :messageType="this.messageType"
         />
 
+        <CircleLoading v-if="this.isLoading" :fullPage="true" />
+
         <h1>{{ $t("Login") }}</h1>
         <div class="login-form-container">
             <InputGroup
@@ -29,6 +31,7 @@ import axios from 'axios';
 import generalFunctions from '@/helpers/generalFunctions';
 
 import Message from '@/components/Message.vue';
+import CircleLoading from '@/components/CircleLoading.vue';
 import InputGroup from '@/components/InputGroup.vue';
 
 const loginRoute = `${process.env.VUE_APP_ROOT_API}/login`;
@@ -37,6 +40,7 @@ export default {
     name: 'LoginView',
 	components: {
         Message,
+        CircleLoading,
         InputGroup
     },
 
@@ -44,6 +48,7 @@ export default {
         return {
             userName: '',
             password: '',
+            isLoading: false,
             messageType: '',
             messageText: '',
             loginData: '',
@@ -105,6 +110,7 @@ export default {
     methods: {
         async login() {
             this.loginData = '';
+            this.isLoading = true;
 
             await axios.post(
                 loginRoute,

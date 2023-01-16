@@ -1,20 +1,43 @@
 <template>
-    <div>
+    <div class="page-container">
         <h1>{{ $t("SalePoints") }}</h1>
-        <div v-for="salePoint in salePoints" :key="salePoint.idSalePoints">
-            {{ salePoint.salePointName }}
-        </div>
+        <Datatable
+            :registers="this.salePoints"
+            :identifier="this.identifier"
+            :textFields="this.textFields"
+        />
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+import generalFunctions from '@/helpers/generalFunctions';
+
+import Datatable from '@/components/Datatable.vue';
+
+const salePointsRoute = `${process.env.VUE_APP_ROOT_API}/salePoints`;
+
 export default {
     name: 'SalePointsView',
+    components: {
+        Datatable
+    },
     data() {
         return {
-            msg: null,
-            msgType: null,
-            salePoints: []
+            salePoints: [],
+            identifier: 'idSalePoints',
+            textFields: [
+                { 'name': 'status', 'field': 'isActive'} ,
+                { 'name': 'id', 'field': 'idSalePoints' },
+                { 'name': 'name', 'field': 'salePointName' },
+                { 'name': 'createdBy', 'field': 'userCreationName' },
+                { 'name': 'updatedBy', 'field': 'userUpdateName' },
+                { 'name': 'creation', 'field': 'createdAt' },
+                { 'name': 'lastUpdate', 'field': 'updatedAt' }
+            ],
+            actionButtons: {
+
+            }
         }
     },
 
@@ -22,11 +45,29 @@ export default {
     },
 
     created() {
+        this.getSalePoints();
+    },
 
+    methods: {
+        async getSalePoints(page, perPage, search) {
+            this.salePoints = [];
+
+            await axios.get(
+                salePointsRoute,
+                {
+                    headers: {
+                        'Authorization': generalFunctions.getAuthorization()
+                    }
+                },
+            ).then(response => {
+                this.salePoints = response.data;
+            });
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+
 
 </style>

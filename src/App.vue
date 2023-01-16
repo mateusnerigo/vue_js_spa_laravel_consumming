@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import NavbarComponent from './components/NavbarComponent.vue';
+import NavbarComponent from './components/Sidebar.vue';
 
 export default ({
   components: {
@@ -33,16 +33,25 @@ export default ({
     height: 100vh;
     background: $white;
     overflow-x: hidden;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .router-view {
+    margin-left: $sidebar_wraped_width;
+    width: $page_width;
+    padding: 2rem 5rem;
   }
 
   .router-transition-enter-active,
   .router-transition-leave-active {
-    transition: 0.5s ease;
+    transition: 0.2s ease;
   }
 
   .router-transition-enter-from,
   .router-transition-leave-to {
     opacity: 0;
-    transform: translateX(50px);
   }
 </style>

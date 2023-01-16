@@ -11,5 +11,13 @@
   "username": "Usuário",
   "enterUsername": "Insire o nome de usuário",
   "password": "Senha",
-  "enterPassword": "Insira a senha"
+  "enterPassword": "Insira a senha",
+  "menu": "menu",
+  "status": "Status",
+  "id": "ID",
+  "name": "Nome",
+  "createdBy": "Criado por",
+  "updatedBy": "Atualizado por",
+  "creation": "Criação",
+  "lastUpdate": "Última atualização"
 }

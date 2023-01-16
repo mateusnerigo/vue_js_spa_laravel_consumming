@@ -1,6 +1,10 @@
 import Cookie from 'js-cookie';
 
 export default {
+    getAuthorization() {
+        return `${Cookie.get(process.env.VUE_APP_COOKIE_TOKEN_TYPE_NAME)} ${Cookie.get(process.env.VUE_APP_COOKIE_TOKEN_NAME)}`
+    },
+
     removeAppCookies() {
         const cookiesToRemove = [
             process.env.VUE_APP_COOKIE_TOKEN_NAME,

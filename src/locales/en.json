@@ -11,5 +11,6 @@
   "username": "Username",
   "enterUsername": "Enter username",
   "password": "Password",
-  "enterPassword": "Enter password"
+  "enterPassword": "Enter password",
+  "menu": "menu"
 }
