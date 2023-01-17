@@ -30,14 +30,8 @@ export default {
                 { 'name': 'status', 'field': 'isActive'} ,
                 { 'name': 'id', 'field': 'idSalePoints' },
                 { 'name': 'name', 'field': 'salePointName' },
-                { 'name': 'createdBy', 'field': 'userCreationName' },
-                { 'name': 'updatedBy', 'field': 'userUpdateName' },
-                { 'name': 'creation', 'field': 'createdAt' },
                 { 'name': 'lastUpdate', 'field': 'updatedAt' }
             ],
-            actionButtons: {
-
-            }
         }
     },
 

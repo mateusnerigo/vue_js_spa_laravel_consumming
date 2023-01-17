@@ -19,5 +19,11 @@
   "createdBy": "Criado por",
   "updatedBy": "Atualizado por",
   "creation": "Criação",
-  "lastUpdate": "Última atualização"
+  "lastUpdate": "Última atualização",
+  "action": "Ações",
+  "ViewRegister": "Visualizar registro",
+  "EditRegister": "Editar registro",
+  "ActivateRegister": "Ativar registro",
+  "DeactivateRegister": "Desativar registro",
+  "RemoveRegister": "Remover registro"
 }

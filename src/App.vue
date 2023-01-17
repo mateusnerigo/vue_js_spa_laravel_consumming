@@ -19,9 +19,8 @@ export default ({
 </script>
 
 <style lang="scss">
-  @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-
   @import '/src/scss/variables.scss';
+  @import '/src/scss/fonts.scss';
 
   * {
     padding: 0;
@@ -37,6 +36,31 @@ export default ({
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+  }
+
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  button {
+    border: none;
+    padding: 0.25rem;
+    margin: 0.15rem;
+    border-radius: 0.25rem;
+    background-color: $gray;
+    color: $white;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    transition: .2s ease-out;
+
+    &:hover {
+      filter: brightness(1.1);
+    }
+
+    .material-icons {
+      font-size: 0.9rem
+    }
   }
 
   .router-view {
