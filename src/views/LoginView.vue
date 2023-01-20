@@ -122,6 +122,14 @@ export default {
                 },
             ).then(response => {
                 this.loginData = response.data;
+            }).catch(() => {
+                console.clear();
+                this.isLoading = false;
+
+                this.loginData = {
+                    "msg": `${this.$t("erroInternoNoServidor")} ${this.$t("tenteNovamenteMaisTarde")}`,
+                    "type": "alert"
+                }
             });
         }
     }

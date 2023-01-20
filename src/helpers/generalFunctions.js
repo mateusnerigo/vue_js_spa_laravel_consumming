@@ -37,5 +37,21 @@ export default {
         }
 
         return false;
-    }
+    },
+
+    prepareRouteParams({ route, page, perPage, search }) {
+        let routeWithParameters = route;
+
+        if (page || perPage || search) {
+            let getParameters = [];
+            if (page) { getParameters.push((`page=${page}`).trim()); }
+            if (perPage) { getParameters.push((`perPage=${perPage}`).trim()); }
+            if (search) { getParameters.push((`search=${search}`).trim()); }
+            routeWithParameters = route.concat("?", getParameters.join('&'));
+        }
+
+        return routeWithParameters;
+    },
+
+
 }

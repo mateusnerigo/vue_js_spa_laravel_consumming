@@ -1,6 +1,5 @@
 <template>
     <button
-        v-if="(active && (text != 'activate') && (text != 'edit')) || (!active && (text != 'deactivate') && (text != 'view'))"
         :class="text"
         :title="buttonTitles[text]"
     >
@@ -12,10 +11,8 @@
 export default {
     name: 'SidebarButton',
     props: {
-        class: String,
         icon: String,
-        text: String,
-        active: Boolean
+        text: String
     },
     data() {
         return {

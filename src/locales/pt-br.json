@@ -25,5 +25,15 @@
   "EditRegister": "Editar registro",
   "ActivateRegister": "Ativar registro",
   "DeactivateRegister": "Desativar registro",
-  "RemoveRegister": "Remover registro"
+  "RemoveRegister": "Remover registro",
+  "actions": "actions",
+  "editSalePoint": "Editar ponto de venda",
+  "erroInternoNoServidor": "Erro interno no servidor.",
+  "tenteNovamenteMaisTarde": "Tente novamente mais tarde.",
+  "search": "Pesquisa",
+  "resultsPerPage": "resultados por página",
+  "Showing": "Mostrando",
+  "to": "até",
+  "from": "de",
+  "registers": "registros"
 }

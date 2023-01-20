@@ -26,6 +26,7 @@ export default ({
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    outline: none;
   }
 
   #app {
@@ -36,10 +37,16 @@ export default ({
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    font-family: 'Mountserrat', sans-serif;
   }
 
-  h1 {
-    font-family: 'Montserrat', sans-serif;
+  input, select, textarea {
+    border: none;
+    border-bottom: 1px solid $dark_white;
+    border-radius: 0.15rem;
+    font-size: 0.85rem;
+    background-color: white;
+    padding: 0.75rem;
   }
 
   button {

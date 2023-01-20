@@ -67,7 +67,7 @@ export default {
         color: $white;
         padding: .25rem .5rem;
         border-radius: .125rem;
-        margin-left: 3rem;
+        margin-left: 3.5rem;
         pointer-events: none;
         opacity: 0;
         transition: .2s ease-in-out;
