@@ -1,32 +1,47 @@
 <template>
-    <div
-        id="modal-screen-container"
-        @click="dismissModal"
-    >
         <div
-            id="modal-container"
-            :class="size"
+            id="modal-screen-container"
+            @click="dismissModal"
         >
-            <div class="modal-header">
-                {{ $t(headerText) }}
+            <div
+                id="modal-container"
+                :class="size"
+            >
+                <div class="modal-header">
+                    {{ $t(headerText) }}
 
-                <button
-                    class="close-modal-button"
-                    @click="$emit('dismissModal')"
-                >×</button>
-            </div>
+                    <button
+                        class="close-modal-button"
+                        @click="dismissModal"
+                    >×</button>
+                </div>
 
-            <slot></slot>
+                <slot></slot>
 
-            <div class="modal-footer">
-                fazer footer
+                <div class="modal-footer">
+                    <div class="modal-footer-buttons">
+                        <IconButton
+                            v-if="cancelButtonOptions.show"
+                            :icon="cancelButtonOptions.icon"
+                            :text="cancelButtonOptions.text"
+                            :innerText="cancelButtonOptions.innerText"
+                            @click="dismissModal"
+                        />
+
+                        <IconButton
+                            v-if="confirmButtonOptions.show"
+                            :icon="confirmButtonOptions.icon"
+                            :text="confirmButtonOptions.text"
+                            :innerText="confirmButtonOptions.innerText"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
-const modalScreenContainer = document.getElementById('modal-screen-container');
+import IconButton from './IconButton.vue';
 
 export default {
     name: 'Modal',
@@ -35,34 +50,36 @@ export default {
             type: String,
             default: 'sm'
         },
+        confirmButtonOptions: {
+            type: Object,
+            default: {
+                "text": "confirm",
+                "show": false
+            }
+        },
+        cancelButtonOptions: {
+            type: Object,
+            default: {
+                "text": "cancel",
+                "show": false
+            }
+        },
         headerText: String,
     },
     components: {
-
+        IconButton
+    },
+    mounted() {
+        document
+            .getElementById('modal-container')
+            .addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
     },
     methods: {
         dismissModal() {
-            document
-                .getElementById('modal-container')
-                .addEventListener('click', (e) => {
-                    e.stopPropagation();
-                });
-
-            modalScreenContainer.style.opacity = 0;
-
-            setTimeout(() => {
-                modalScreenContainer.style.zIndex = -1
-            }, 200)
-
+            this.$store.dispatch('toggleModal', 0);
         },
-
-        showModal() {
-            modalScreenContainer.style.opacity = 0;
-
-            setTimeout(() => {
-                modalScreenContainer.style.zIndex = -1
-            }, 200)
-        }
     }
 }
 </script>
@@ -132,8 +149,16 @@ export default {
                 font-weight: 800;
             }
         }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            .modal-footer-buttons {
+                display: flex;
+
+            }
+        }
     }
 }
-
 </style>
 

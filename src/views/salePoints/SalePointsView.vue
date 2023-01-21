@@ -1,37 +1,46 @@
 <template>
     <div class="page-container">
-        <h1>{{ $t("SalePoints") }}</h1>
+        <div class="page-container-header">
+            <h1>{{ $t("SalePoints") }}</h1>
+
+            <IconButton
+                :icon="'add'"
+                :text="'add'"
+                :innerText="this.addRegisterText"
+                @click="this.showModal('New')"
+            />
+        </div>
+
         <Datatable
-            :registers="this.salePoints"
+            :registers="$store.state.salePoints"
             :identifier="this.identifier"
             :textFields="this.textFields"
         />
 
-        <SalePointModal
-            v-if="showModal"
-            :type="modalType"
-        />
+        <transition name="modal-fade" appear>
+            <SalePointModal
+                v-if="$store.state.isModalActive"
+                :type="this.modalType"
+            />
+        </transition>
+
     </div>
 </template>
 
 <script>
-import axios from 'axios';
-import generalFunctions from '@/helpers/generalFunctions';
-
 import Datatable from '@/components/Datatable.vue';
+import IconButton from '@/components/IconButton.vue';
 import SalePointModal from '@/components/SalePointModal.vue';
-
-const salePointsRoute = `${process.env.VUE_APP_ROOT_API}/salePoints`;
 
 export default {
     name: 'SalePointsView',
     components: {
         Datatable,
-        SalePointModal
+        SalePointModal,
+        IconButton
     },
     data() {
         return {
-            salePoints: [],
             identifier: 'idSalePoints',
             textFields: [
                 { 'name': 'status', 'field': 'isActive'} ,
@@ -42,9 +51,8 @@ export default {
             dtPage: 1,
             dtPerPage: 3,
             dtSearch: '',
-            showModal: false,
             modalType: '',
-
+            addRegisterText: this.$t("novo")
         }
     },
 
@@ -54,46 +62,31 @@ export default {
 
     watch: {
         dtPage(newDtPage) {
-            this.getSalePoints();
+            this.getSalePoints(true);
         },
 
         dtPerPage(newDtPerPage) {
-            this.getSalePoints();
+            this.getSalePoints(true);
         },
 
         dtSearch(newDtSearch) {
-            this.getSalePoints();
+            this.getSalePoints(true);
         }
     },
 
     methods: {
-        async getSalePoints() {
-            await axios.get(
-                generalFunctions.prepareRouteParams({
-                    route: salePointsRoute,
-                    page: this.dtPage,
-                    perPage: this.dtPerPage,
-                    search: this.dtSearch
-                }),
-                {
-                    headers: {
-                        'Authorization': generalFunctions.getAuthorization()
-                    }
-                },
-            ).then(response => {
-                console.log(response.data)
-                if(response.data.total > 0) {
-                    this.dtPage = (response.data.current_page > response.data.last_page) ? 1 : this.dtPage;
-                    this.salePoints = response.data;
-                }
-            }).catch(() => {
-                this.$router.push('/loginSuccess');
+        getSalePoints(updateList = false) {
+            this.$store.dispatch('getSalePoints', {
+                updateList,
+                page: this.dtPage,
+                perPage: this.dtPerPage,
+                search: this.dtSearch
             });
         },
 
-        showEditModal() {
-            this.showModal = true;
-            this.modalType= 'edit';
+        showModal(type) {
+            this.$store.dispatch('toggleModal', 1);
+            this.modalType= type;
         },
 
         updateDtPage(newDtPage) {

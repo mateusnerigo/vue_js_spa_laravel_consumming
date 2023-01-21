@@ -3,9 +3,7 @@
         <div class="table-filters-container">
             <div class="filter-results-container">
                 <select class="filters-results" v-model="this.perPageField">
-                    <option selected value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="10">10</option>
+                    <option value="10" selected>10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
@@ -24,6 +22,7 @@
                 >
             </div>
         </div>
+
         <table>
             <thead>
                 <th
@@ -48,7 +47,7 @@
                     </td>
                     <td>
                         <template v-if="register.isActive">
-                            <IconButton :icon="'edit'" :text="'edit'" @click="$parent.showEditModal"/>
+                            <IconButton :icon="'edit'" :text="'edit'" @click="$parent.showModal('edit')"/>
                             <IconButton :icon="'close'" :text="'deactivate'" />
                         </template>
 
@@ -85,7 +84,6 @@
 </template>
 
 <script>
-import generalFunctions from '@/helpers/generalFunctions';
 import IconButton from './IconButton.vue';
 
 export default {
@@ -114,6 +112,10 @@ export default {
 
     updated() {
         this.handleDatatableStatus();
+
+        if (this.registers.current_page > this.registers.last_page) {
+            this.updatePageDataTable(1);
+        }
     },
 
     watch: {
@@ -267,23 +269,7 @@ export default {
 
                 td {
                     color: $dark_gray;
-                    padding: 0.25rem 0.5rem;
-
-                    // div {
-                    //     height: 1rem;
-                    //     width: 1rem;
-                    //     border-radius: 50%;
-                    //     padding: 0;
-                    //     background-color: black;
-
-                    //     &.datatable-status-active {
-                    //         background-color: $green;
-                    //     }
-
-                    //     &.datatable-status-inactive {
-                    //         background-color: $red;
-                    //     }
-                    // }
+                    padding: 0.15rem 0.5rem;
                 }
             }
         }

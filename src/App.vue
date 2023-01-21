@@ -40,6 +40,19 @@ export default ({
     font-family: 'Mountserrat', sans-serif;
   }
 
+  .page-container {
+    .page-container-header {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 2.5rem;
+    }
+  }
+
   input, select, textarea {
     border: none;
     border-bottom: 1px solid $dark_white;
@@ -73,7 +86,7 @@ export default ({
   .router-view {
     margin-left: $sidebar_wraped_width;
     width: $page_width;
-    padding: 2rem 5rem;
+    padding: 3rem 5rem;
   }
 
   .router-transition-enter-active,
@@ -84,5 +97,25 @@ export default ({
   .router-transition-enter-from,
   .router-transition-leave-to {
     opacity: 0;
+  }
+
+  .modal-fade-enter-active,
+  .modal-fade-leave-active {
+    transition: 0.2s ease !important;
+
+    #modal-container {
+      transition: 0.2s ease !important;
+    }
+  }
+
+  .modal-fade-enter-from,
+  .modal-fade-leave-to {
+    opacity: 0 !important;
+
+    #modal-container {
+      opacity: 0 !important;
+      transform: scale(0.95);
+      transform: translateY(-1rem);
+    }
   }
 </style>

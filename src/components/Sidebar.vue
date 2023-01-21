@@ -13,22 +13,20 @@
         </div>
 
         <h3>{{ $t("menu") }}</h3>
-        <transition name="sidebar-fade" mode="out-in">
-            <div class="sidebar-links">
-                <!-- <router-link to="/dashboard">Dashboard</router-link> -->
-                <SidebarButton
-                    @click="closeSidebar"
-                    v-for="sidebarButton in sidebarButtons"
-                    :key="sidebarButton.route"
-                    :route="sidebarButton.route"
-                    :icon="sidebarButton.icon"
-                    :text="sidebarButton.text"
-                    :lastItem="sidebarButton.lastItem"
-                    :isLoggedIn="$store.state.isLoggedIn"
-                    :justLoggedIn="sidebarButton.justLoggedIn"
-                />
-            </div>
-        </transition>
+        <div class="sidebar-links">
+            <!-- <router-link to="/dashboard">Dashboard</router-link> -->
+            <SidebarButton
+                @click="closeSidebar"
+                v-for="sidebarButton in sidebarButtons"
+                :key="sidebarButton.route"
+                :route="sidebarButton.route"
+                :icon="sidebarButton.icon"
+                :text="sidebarButton.text"
+                :lastItem="sidebarButton.lastItem"
+                :isLoggedIn="$store.state.isLoggedIn"
+                :justLoggedIn="sidebarButton.justLoggedIn"
+            />
+        </div>
     </aside>
 </template>
 
