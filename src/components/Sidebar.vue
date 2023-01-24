@@ -114,7 +114,7 @@ export default {
         padding: 1rem;
 
         background-color: $purple;
-        box-shadow: 0px 0px 10px 2px $dark_white;
+        box-shadow: 0px 0px 10px 2px $shadow_black;
 
         overflow: hidden;
         transition: 0.2s ease-out;

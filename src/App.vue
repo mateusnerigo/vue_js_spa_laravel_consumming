@@ -62,6 +62,19 @@ export default ({
     padding: 0.75rem;
   }
 
+  .form-group {
+    .form-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+  }
+
+  .mt-2 {
+    margin-top: 2rem;
+  }
+
   button {
     border: none;
     padding: 0.25rem;
@@ -85,8 +98,8 @@ export default ({
 
   .router-view {
     margin-left: $sidebar_wraped_width;
-    width: $page_width;
     padding: 3rem 5rem;
+    width: $page_width;
   }
 
   .router-transition-enter-active,
@@ -117,5 +130,16 @@ export default ({
       transform: scale(0.95);
       transform: translateY(-1rem);
     }
+  }
+
+  .alert-transition-enter-active,
+  .alert-transition-leave-active {
+    transition: 0.5s ease-in-out;
+  }
+
+  .alert-transition-enter-from,
+  .alert-transition-leave-to {
+    opacity: 0;
+    transform: translateY(-5rem);
   }
 </style>

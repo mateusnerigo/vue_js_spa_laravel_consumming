@@ -1,6 +1,7 @@
 {
   "Clients": "Clientes",
   "SalePoints": "Pontos de venda",
+  "SalePoint": "Ponto de venda",
   "Products": "Produtos",
   "Sales": "Vendas",
   "Logout": "Sair",
@@ -26,6 +27,7 @@
   "ActivateRegister": "Ativar registro",
   "DeactivateRegister": "Desativar registro",
   "RemoveRegister": "Remover registro",
+  "AddRegister": "Adicionar registro",
   "actions": "actions",
   "editSalePoint": "Editar ponto de venda",
   "erroInternoNoServidor": "Erro interno no servidor.",
@@ -35,5 +37,16 @@
   "Showing": "Mostrando",
   "to": "até",
   "from": "de",
-  "registers": "registros"
+  "registers": "registros",
+  "Confirm": "Confirmar",
+  "Save": "Salvar",
+  "Cancel": "Cancelar",
+  "Close": "Fechar",
+  "New": "Novo",
+  "danger": "Atenção!",
+  "warning": "Atenção!",
+  "success": "Sucesso!",
+  "SalePointName": "Nome do ponto de venda",
+  "SalePointDescription": "Descrição do ponto de venda",
+  "description": "Descrição"
 }

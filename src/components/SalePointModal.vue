@@ -4,16 +4,21 @@
         :size="'md'"
         :confirmButtonOptions="this.confirmButtonOptions"
         :cancelButtonOptions="this.cancelButtonOptions"
+        @emitCallback="saveSalePoint"
     >
-        <InputGroup
-            v-bind="this.inputGroups.nameInput"
-            v-model="this.name"
-        />
+        <div class="form-group">
+            <div class="form-row">
+                <InputGroup
+                    v-bind="this.inputGroups.nameInput"
+                    v-model="this.name"
+                />
 
-        <InputGroup
-            v-bind="this.inputGroups.descriptionInput"
-            v-model="this.description"
-        />
+                <InputGroup
+                    v-bind="this.inputGroups.descriptionInput"
+                    v-model="this.description"
+                />
+            </div>
+        </div>
     </Modal>
 </template>
 
@@ -37,7 +42,7 @@ export default {
             confirmButtonOptions: {
                 "show": true,
                 "text": "confirm",
-                "innerText": "confirm",
+                "innerText": "confirm"
             },
             cancelButtonOptions: {
                 "show": true,
@@ -53,15 +58,17 @@ export default {
                     "name": "salePointName",
                     "type": "text",
                     "id": "sale-point-name",
-                    "label": this.$t("nome"),
-                    "placeholder": this.$t("nomeDoPontoDeVenda"),
+                    "label": this.$t("name"),
+                    "placeholder": this.$t("SalePointName"),
+                    "width": 'lg'
                 },
                 descriptionInput: {
                     "name": "salePointDescription",
                     "type": "text",
                     "id": "sale-point-description",
                     "label": this.$t("description"),
-                    "placeholder": this.$t("descricaoDoPontoDeVenda"),
+                    "placeholder": this.$t("SalePointDescription"),
+                    "width": 'lg'
                 },
             },
 
@@ -69,6 +76,17 @@ export default {
     },
     mounted() {
         this.headerText += ` - ${this.$t(this.type)}`;
+    },
+    methods: {
+        saveSalePoint() {
+            this.$store.dispatch(
+                'saveSalePoints',
+                {
+                    "name": this.name,
+                    "description": this.description
+                }
+            );
+        }
     }
 }
 </script>

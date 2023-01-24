@@ -29,6 +29,7 @@ export default {
                 'save': this.$t("Save"),
                 'cancel': this.$t("Cancel"),
                 'close': this.$t("Close"),
+                'login': this.$t('Login')
             }
         }
     }
@@ -44,12 +45,18 @@ button {
     &.activate { background-color: $dark_green; }
     &.deactivate { background-color: $dark_red; }
     &.remove { background-color: $dark_gray; }
+    &.confirm { background-color: $blue ;}
+    &.save { background-color: $green ;}
+    &.cancel { background-color: $red ;}
+    &.close { background-color: $gray ;}
+    &.login { background-color: $dark_blue ;}
 
     &.add ,
     &.confirm,
     &.save,
     &.cancel,
-    &.close {
+    &.close,
+    &.login {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -59,10 +66,7 @@ button {
         text-transform: capitalize;
     }
 
-    &.confirm { background-color: $blue ;}
-    &.save { background-color: $green ;}
-    &.cancel { background-color: $red ;}
-    &.close { background-color: $gray ;}
+
 }
 </style>
 

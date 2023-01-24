@@ -1,5 +1,8 @@
 <template>
-     <div class="input-group">
+     <div
+        class="input-group"
+        :class="`${this.width}`"
+     >
         <label :for="name">{{ label }}</label>
         <input
             :type="type"
@@ -39,6 +42,10 @@ export default {
         modelValue: {
             type: String,
             required: true
+        },
+        width: {
+            type: String,
+            default: 'md'
         }
     },
 
@@ -54,6 +61,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '/src/scss/variables.scss';
 
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+
+    &.sm {
+        width: 15vw;
+    }
+
+    &.md {
+        width: 32vw;
+    }
+
+    &.lg {
+        width: 66vw;
+    }
+
+    label {
+        font-size: 0.75rem;
+        padding: .25rem .25rem 0;
+        color: $dark_gray;
+    }
+
+    input {
+        width: 100%;
+        background-color: transparent;
+        border-bottom: 1.5px solid $gray;
+        font-size: 0.85rem;
+        padding: 0.5rem
+    }
+}
 </style>
 

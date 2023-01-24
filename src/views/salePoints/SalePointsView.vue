@@ -49,10 +49,10 @@ export default {
                 { 'name': 'lastUpdate', 'field': 'updatedAt' }
             ],
             dtPage: 1,
-            dtPerPage: 3,
+            dtPerPage: 10,
             dtSearch: '',
             modalType: '',
-            addRegisterText: this.$t("novo")
+            addRegisterText: this.$t("New")
         }
     },
 

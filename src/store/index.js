@@ -6,7 +6,6 @@ import generalFunctions from '@/helpers/generalFunctions';
 
 const salePointsRoute = `${process.env.VUE_APP_ROOT_API}/salePoints`;
 
-
 export default createStore({
   state: {
     isLoggedIn: false,
@@ -18,18 +17,20 @@ export default createStore({
     isAuthenticated(state) {
       state.isLoggedIn = generalFunctions.hasCookieByName(process.env.VUE_APP_COOKIE_TOKEN_NAME);
     },
+
     activeModal(state) {
       state.isModalActive = true;
     },
     deactiveModal(state) {
       state.isModalActive = false;
     },
+    toggleModal(state, data) {
+      state.isModalActive = data;
+    },
+
     updateSalePoints(state, data) {
       state.salePoints = data;
     },
-    toggleModal(state, data) {
-      state.isModalActive = data;
-    }
   },
   actions: {
     toggleModal({ commit }, isActive) {
@@ -41,9 +42,9 @@ export default createStore({
         await axios.get(
           generalFunctions.prepareRouteParams({
             route: salePointsRoute,
-            page: options.page,
-            perPage: options.perPage,
-            search: options.search
+            page: (options.page ?? 1),
+            perPage: (options.perPage ?? 10),
+            search: (options.search ?? '')
           }),
           {
             headers: {
@@ -60,8 +61,36 @@ export default createStore({
         });
       }
 
+    },
+    async saveSalePoints({ commit }, newSalePoint) {
+      await axios.post(
+        salePointsRoute,
+        {
+          data: JSON.stringify({
+            idSalePoints: (newSalePoint.idSalePoints ?? ''),
+            salePointName: (newSalePoint.name ?? ''),
+            description: (newSalePoint.description ?? '')
+          })
+        },
+        {
+          headers: {
+            'Authorization': generalFunctions.getAuthorization()
+          }
+        },
+      ).then(response => {
+        console.log(response);
+      }).catch((e) => {
+        console.log(e)
+      });
+
+      this.dispatch('getSalePoints', {
+        "updateList": true
+      });
+      this.dispatch('toggleModal', 0);
     }
   },
   modules: {
   }
 })
+
+//{"idSalePoints":"3","salePointName":"NeriGoDev", "description":""}

@@ -1,26 +1,36 @@
 <template>
     <div class="login-container">
-        <Message
-            v-if="((this.messageText != '') && (this.messageType != ''))"
-            :messageText="this.messageText"
-            :messageType="this.messageType"
-        />
+        <transition name="alert-transition">
+            <Alert
+                v-show="isShowingModal"
+                :alertText="this.alertText"
+                :alertType="this.alertType"
+            />
+        </transition>
 
         <CircleLoading v-if="this.isLoading" :fullPage="true" />
 
-        <h1>{{ $t("Login") }}</h1>
         <div class="login-form-container">
-            <InputGroup
-                v-bind="inputGroups.userNameInput"
-                v-model="userName"
-            />
+            <h1>{{ $t("Login") }}</h1>
 
-            <InputGroup
-                v-bind="inputGroups.passwordInput"
-                v-model="password"
-            />
+            <div class="login-form-groups">
+                <InputGroup
+                    v-bind="inputGroups.userNameInput"
+                    v-model="userName"
+                />
 
-        <a href="#" @click="login">{{ $t("Login") }}</a>
+                <InputGroup
+                    v-bind="inputGroups.passwordInput"
+                    v-model="password"
+                />
+            </div>
+
+            <IconButton
+                @click="login()"
+                :icon="'login'"
+                :innerText="this.loginButtonText"
+                :text="'login'"
+            />
         </div>
     </div>
 </template>
@@ -28,20 +38,23 @@
 <script>
 import axios from 'axios';
 
+
 import generalFunctions from '@/helpers/generalFunctions';
 
-import Message from '@/components/Message.vue';
+import Alert from '@/components/Alert.vue';
 import CircleLoading from '@/components/CircleLoading.vue';
 import InputGroup from '@/components/InputGroup.vue';
+import IconButton from '@/components/IconButton.vue';
 
 const loginRoute = `${process.env.VUE_APP_ROOT_API}/login`;
 
 export default {
     name: 'LoginView',
 	components: {
-        Message,
+        Alert,
         CircleLoading,
-        InputGroup
+        InputGroup,
+        IconButton
     },
 
     data() {
@@ -49,9 +62,11 @@ export default {
             userName: '',
             password: '',
             isLoading: false,
-            messageType: '',
-            messageText: '',
+            isShowingModal: false,
+            alertType: '',
+            alertText: '',
             loginData: '',
+            loginButtonText: this.$t("Login"),
 
             inputGroups: {
                 userNameInput: {
@@ -101,8 +116,13 @@ export default {
             }
 
             if (receivedLoginData.msg != '') {
-                this.messageText = receivedLoginData.msg;
-                this.messageType = receivedLoginData.type;
+                this.alertText = receivedLoginData.msg;
+                this.alertType = receivedLoginData.type;
+                this.isShowingModal = true;
+
+                setTimeout(() => {
+                    this.isShowingModal = false;
+                }, 2000);
             }
         }
     },
@@ -128,7 +148,7 @@ export default {
 
                 this.loginData = {
                     "msg": `${this.$t("erroInternoNoServidor")} ${this.$t("tenteNovamenteMaisTarde")}`,
-                    "type": "alert"
+                    "type": "danger"
                 }
             });
         }
@@ -137,5 +157,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '/src/scss/variables.scss';
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, $purple, $blue);
 
+    .login-form-container {
+        background: $white;
+        box-shadow: 0px 0px 10px 2px $shadow_black;
+        border-radius: 0.5rem;
+        display: flex;
+        flex-direction: column ;
+        flex-wrap: nowrap;
+        align-items: center;
+        padding-bottom: 2rem;
+        overflow-x: hidden;
+
+        h1 {
+            border-bottom: 1px solid $dark_white;
+            width: 100%;
+            padding: 1.5rem;
+            color: $dark_blue;
+            text-align: center;
+        }
+
+        .login-form-groups {
+            padding: 2rem 1.5rem .5rem;
+        }
+    }
+}
 </style>

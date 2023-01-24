@@ -8,7 +8,7 @@
                 :class="size"
             >
                 <div class="modal-header">
-                    {{ $t(headerText) }}
+                    {{ headerText }}
 
                     <button
                         class="close-modal-button"
@@ -33,6 +33,7 @@
                             :icon="confirmButtonOptions.icon"
                             :text="confirmButtonOptions.text"
                             :innerText="confirmButtonOptions.innerText"
+                            @click="this.emitCallback"
                         />
                     </div>
                 </div>
@@ -80,6 +81,9 @@ export default {
         dismissModal() {
             this.$store.dispatch('toggleModal', 0);
         },
+        emitCallback() {
+            this.$emit('emitCallback');
+        }
     }
 }
 </script>
@@ -103,16 +107,10 @@ export default {
     opacity: 1;
     transition: .2s opacity;
 
-    .blur {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
     #modal-container {
         padding: 1rem;
         background: $white;
-        box-shadow: 0px 0px 10px 2px $dark_white;
+        box-shadow: 0px 0px 10px 2px $shadow_black;
         border-radius: 0.5rem;
 
         max-height: 80vh;

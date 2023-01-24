@@ -21,8 +21,11 @@ $beige: #ffda79;
 $dark_beige: #ccae62;
 $purple: #706fd3;
 $dark_purple: #474787;
+$shadow_black: #13131333;
+
 
 $sidebar_wraped_width: calc(2rem + 32px);
 $sidebar_width: 300px;
 
+$alert_width: calc(95vw - $sidebar_wraped_width);
 $page_width: calc(100vw - $sidebar_wraped_width);
