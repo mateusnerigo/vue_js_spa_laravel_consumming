@@ -1,15 +1,5 @@
 <template>
     <div class="login-container">
-        <transition name="alert-transition">
-            <Alert
-                v-show="isShowingModal"
-                :alertText="this.alertText"
-                :alertType="this.alertType"
-            />
-        </transition>
-
-        <CircleLoading v-if="this.isLoading" :fullPage="true" />
-
         <div class="login-form-container">
             <h1>{{ $t("Login") }}</h1>
 
@@ -41,8 +31,6 @@ import axios from 'axios';
 
 import generalFunctions from '@/helpers/generalFunctions';
 
-import Alert from '@/components/Alert.vue';
-import CircleLoading from '@/components/CircleLoading.vue';
 import InputGroup from '@/components/InputGroup.vue';
 import IconButton from '@/components/IconButton.vue';
 
@@ -51,8 +39,6 @@ const loginRoute = `${process.env.VUE_APP_ROOT_API}/login`;
 export default {
     name: 'LoginView',
 	components: {
-        Alert,
-        CircleLoading,
         InputGroup,
         IconButton
     },
@@ -61,10 +47,7 @@ export default {
         return {
             userName: '',
             password: '',
-            isLoading: false,
-            isShowingModal: false,
-            alertType: '',
-            alertText: '',
+
             loginData: '',
             loginButtonText: this.$t("Login"),
 
@@ -116,13 +99,12 @@ export default {
             }
 
             if (receivedLoginData.msg != '') {
-                this.alertText = receivedLoginData.msg;
-                this.alertType = receivedLoginData.type;
-                this.isShowingModal = true;
+                this.$store.dispatch('updateAlert', {
+                    "text": receivedLoginData.msg,
+                    "type": receivedLoginData.type
+                })
 
-                setTimeout(() => {
-                    this.isShowingModal = false;
-                }, 2000);
+                this.$store.dispatch('toggleAlert', 1);
             }
         }
     },
@@ -144,7 +126,7 @@ export default {
                 this.loginData = response.data;
             }).catch(() => {
                 console.clear();
-                this.isLoading = false;
+                this.$store.dispatch('toggleLoading', 0);
 
                 this.loginData = {
                     "msg": `${this.$t("erroInternoNoServidor")} ${this.$t("tenteNovamenteMaisTarde")}`,

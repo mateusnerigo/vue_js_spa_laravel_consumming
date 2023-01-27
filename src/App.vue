@@ -1,5 +1,16 @@
 <template>
-  <NavbarComponent />
+  <Sidebar />
+
+  <transition name="alert-transition">
+    <AlertComponent
+        v-show="$store.state.isAlertActive"
+        :alertText="$store.state.alertText"
+        :alertType="$store.state.alertType"
+    />
+
+  </transition>
+
+  <CircleLoading v-if="this.isLoading" :fullPage="true" />
 
   <router-view class="router-view" v-slot="{ Component }">
     <Transition name="router-transition" mode="out-in">
@@ -9,12 +20,16 @@
 </template>
 
 <script>
-import NavbarComponent from './components/Sidebar.vue';
+import AlertComponent from './components/AlertComponent.vue';
+import Sidebar from './components/Sidebar.vue';
+import CircleLoading from './components/Sidebar.vue';
 
 export default ({
   components: {
-    NavbarComponent
-  }
+    Sidebar,
+    AlertComponent,
+    CircleLoading
+}
 })
 </script>
 
@@ -135,11 +150,20 @@ export default ({
   .alert-transition-enter-active,
   .alert-transition-leave-active {
     transition: 0.5s ease-in-out;
+
+    .material-icons {
+      transition: 0.5s ease-in-out;
+    }
   }
 
   .alert-transition-enter-from,
   .alert-transition-leave-to {
     opacity: 0;
+
     transform: translateY(-5rem);
+
+    .material-icons {
+      transform: scale(1.5);
+    }
   }
 </style>

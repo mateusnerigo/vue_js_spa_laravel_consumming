@@ -10,6 +10,10 @@ export default createStore({
   state: {
     isLoggedIn: false,
     isModalActive: false,
+    isLoadingActive: false,
+    isAlertActive: false,
+    alertText: '',
+    alertType: '',
     salePoints: [],
   },
   getters: {},
@@ -18,14 +22,23 @@ export default createStore({
       state.isLoggedIn = generalFunctions.hasCookieByName(process.env.VUE_APP_COOKIE_TOKEN_NAME);
     },
 
-    activeModal(state) {
-      state.isModalActive = true;
+    toggleModal(state, status) {
+      state.isModalActive = status;
     },
-    deactiveModal(state) {
-      state.isModalActive = false;
+    toggleLoading(state, status) {
+      state.isLoadingActive = status;
     },
-    toggleModal(state, data) {
-      state.isModalActive = data;
+    toggleAlert(state, status) {
+      state.isAlertActive = status;
+
+
+      setTimeout(() => {
+        state.isAlertActive = false;
+      }, 2000);
+    },
+    updateAlertData(state, alertData) {
+      state.alertText = alertData.text;
+      state.alertType = alertData.type;
     },
 
     updateSalePoints(state, data) {
@@ -35,6 +48,18 @@ export default createStore({
   actions: {
     toggleModal({ commit }, isActive) {
       commit('toggleModal', (isActive ? true : false));
+    },
+
+    toggleLoading({ commit }, isActive) {
+      commit('toggleLoading', (isActive ? true : false));
+    },
+
+    toggleAlert({ commit }, isActive) {
+      commit('toggleAlert', (isActive ? true : false));
+    },
+
+    updateAlert({ commit }, alertData) {
+      commit('updateAlertData', alertData)
     },
 
     async getSalePoints({ commit }, options) {
