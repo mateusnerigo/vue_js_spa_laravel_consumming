@@ -10,7 +10,9 @@
 
   </transition>
 
-  <CircleLoading v-if="this.isLoading" :fullPage="true" />
+  <transition name="circle-loading-full-page-transition">
+    <CircleLoading v-if="$store.state.isLoadingActive" :fullPage="true" />
+  </transition>
 
   <router-view class="router-view" v-slot="{ Component }">
     <Transition name="router-transition" mode="out-in">
@@ -22,7 +24,7 @@
 <script>
 import AlertComponent from './components/AlertComponent.vue';
 import Sidebar from './components/Sidebar.vue';
-import CircleLoading from './components/Sidebar.vue';
+import CircleLoading from './components/CircleLoading.vue';
 
 export default ({
   components: {
@@ -165,5 +167,15 @@ export default ({
     .material-icons {
       transform: scale(1.5);
     }
+  }
+
+  .circle-loading-full-page-transition-enter-active,
+  .circle-loading-full-page-transition-leave-active {
+    transition: 1s ease;
+  }
+
+  .circle-loading-full-page-transition-enter-from,
+  .circle-loading-full-page-transition-leave-to {
+    opacity: 0;
   }
 </style>

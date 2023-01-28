@@ -34,7 +34,6 @@ export default{
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: none;
 
     &.full-page {
         position: absolute;
@@ -52,9 +51,10 @@ export default{
     position: relative;
     width: 80px;
     height: 80px;
+    pointer-events: none;
 
     div {
-        animation: circle-loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        animation: circle-loading 2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
         transform-origin: 40px 40px;
 
         &:after {
@@ -64,7 +64,7 @@ export default{
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background: $black;
+            background: $dark_gray;
             margin: -4px 0 0 -4px;
         }
 

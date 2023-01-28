@@ -88,7 +88,7 @@ export default {
     },
 
     created() {
-        this.$store.commit('isAuthenticated');
+        this.$store.dispatch('setIsAuthenticated');
     },
 
     methods: {

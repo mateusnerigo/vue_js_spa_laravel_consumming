@@ -26,15 +26,11 @@
 </template>
 
 <script>
-import axios from 'axios';
-
-
 import generalFunctions from '@/helpers/generalFunctions';
 
 import InputGroup from '@/components/InputGroup.vue';
 import IconButton from '@/components/IconButton.vue';
 
-const loginRoute = `${process.env.VUE_APP_ROOT_API}/login`;
 
 export default {
     name: 'LoginView',
@@ -48,7 +44,6 @@ export default {
             userName: '',
             password: '',
 
-            loginData: '',
             loginButtonText: this.$t("Login"),
 
             inputGroups: {
@@ -76,62 +71,11 @@ export default {
         }
     },
 
-    watch: {
-        loginData(receivedLoginData) {
-            if ((receivedLoginData.type == 'success') &&
-                receivedLoginData.data.access_token &&
-                receivedLoginData.data.expires_in > 0
-            ) {
-                generalFunctions.setAppCookies([
-                    {
-                        'name': process.env.VUE_APP_COOKIE_TOKEN_NAME,
-                        'value': receivedLoginData.data.access_token
-                    },
-                    {
-                        'name': process.env.VUE_APP_COOKIE_TOKEN_TYPE_NAME,
-                        'value': receivedLoginData.data.token_type
-                    }
-                ]);
-
-                this.$store.commit('isAuthenticated');
-                this.$router.push('/loginSuccess');
-                return;
-            }
-
-            if (receivedLoginData.msg != '') {
-                this.$store.dispatch('updateAlert', {
-                    "text": receivedLoginData.msg,
-                    "type": receivedLoginData.type
-                })
-
-                this.$store.dispatch('toggleAlert', 1);
-            }
-        }
-    },
-
     methods: {
-        async login() {
-            this.loginData = '';
-            this.isLoading = true;
-
-            await axios.post(
-                loginRoute,
-                {
-                    data: JSON.stringify({
-                        userName: this.userName,
-                        password: this.password
-                    })
-                },
-            ).then(response => {
-                this.loginData = response.data;
-            }).catch(() => {
-                console.clear();
-                this.$store.dispatch('toggleLoading', 0);
-
-                this.loginData = {
-                    "msg": `${this.$t("erroInternoNoServidor")} ${this.$t("tenteNovamenteMaisTarde")}`,
-                    "type": "danger"
-                }
+        login() {
+            this.$store.dispatch('login', {
+                "userName": this.userName,
+                "password": this.password
             });
         }
     }
