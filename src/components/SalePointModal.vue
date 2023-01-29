@@ -60,7 +60,7 @@ export default {
                     "id": "sale-point-name",
                     "label": this.$t("name"),
                     "placeholder": this.$t("SalePointName"),
-                    "width": 'lg'
+                    "width": 'md'
                 },
                 descriptionInput: {
                     "name": "salePointDescription",
@@ -68,7 +68,7 @@ export default {
                     "id": "sale-point-description",
                     "label": this.$t("description"),
                     "placeholder": this.$t("SalePointDescription"),
-                    "width": 'lg'
+                    "width": 'md'
                 },
             },
 

@@ -80,10 +80,13 @@ export default ({
   }
 
   .form-group {
+    padding: 1rem 0;
+
     .form-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      flex-direction: row;
+      justify-content: space-around;
       flex-wrap: wrap;
     }
   }

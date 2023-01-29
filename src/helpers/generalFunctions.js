@@ -1,4 +1,5 @@
 import Cookie from 'js-cookie';
+import store from '@/store';
 
 export default {
     getAuthorization() {
@@ -53,5 +54,39 @@ export default {
         return routeWithParameters;
     },
 
+    handleRequisitionErrors(error) {
+        if (error == 'internal') {
+            store.dispatch('updateAlert', {
+                "text": [ "internalServerError", "tryAgainLater" ],
+                "type": "danger"
+            });
+            return;
+        }
 
+        if (error == 'app') {
+            store.dispatch('updateAlert', {
+                "text": [ "unexpectedApplicationError", "pleaseContactSupport" ],
+                "type": "danger"
+            });
+            return;
+        }
+    },
+
+    handleConfirmModalTexts(type) {
+        let title = '';
+        let text = '';
+
+        if (type == 'activate') {
+            title = "ActivateRegister";
+            text = "onConfirmThisRegisterWillBeAbleForUseAndEdits";
+        } else if (type == 'deactivate') {
+            title = "DeactivateRegister";
+            text = "onConfirmThisRegisterWillNotBeAbleForUseOrEdits";
+        } else if (type == 'remove') {
+            title = "RemoveRegister";
+            text = "beCarefulOnConfirmThisRegisterWillNeverBeAbleForUseOrEditsAgain";
+        }
+
+        store.dispatch('updateConfirmModal', { title, text });
+    }
 }

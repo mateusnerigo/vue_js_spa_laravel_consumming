@@ -52,7 +52,7 @@ export default {
                     type: 'text',
                     id: 'login-form-username',
                     label: this.$t("username"),
-                    placeholder: this.$t("enterUsername")
+                    placeholder: this.$t("enterUsername"),
                 },
                 passwordInput: {
                     name: 'password',
@@ -76,6 +76,11 @@ export default {
             this.$store.dispatch('login', {
                 "userName": this.userName,
                 "password": this.password
+            }).then(response => {
+                this.$router.push('/loginSuccess');
+                return;
+            }, error => {
+                generalFunctions.handleRequisitionErrors(error);
             });
         }
     }
@@ -98,19 +103,20 @@ export default {
         flex-direction: column ;
         flex-wrap: nowrap;
         align-items: center;
-        padding-bottom: 2rem;
+        padding-bottom: 1rem;
         overflow-x: hidden;
 
+
         h1 {
-            border-bottom: 1px solid $dark_white;
             width: 100%;
-            padding: 1.5rem;
+            padding: 1rem;
+            font-size: 1.5rem;
             color: $dark_blue;
-            text-align: center;
         }
 
         .login-form-groups {
-            padding: 2rem 1.5rem .5rem;
+            padding: 1rem 1rem 0rem;
+            margin-bottom: 2rem;
         }
     }
 }

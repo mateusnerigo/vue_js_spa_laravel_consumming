@@ -48,15 +48,15 @@
                     <td>
                         <template v-if="register.isActive">
                             <IconButton :icon="'edit'" :text="'edit'" @click="$parent.showModal('edit')"/>
-                            <IconButton :icon="'close'" :text="'deactivate'" />
+                            <IconButton :icon="'close'" :text="'deactivate'" @click="$parent.showConfirmModal(register, 'deactivate')" />
                         </template>
 
                         <template v-else>
                             <IconButton :icon="'visibility'" :text="'view'" />
-                            <IconButton :icon="'done'" :text="'activate'" />
+                            <IconButton :icon="'done'" :text="'activate'" @click="$parent.showConfirmModal(register, 'activate')" />
                         </template>
 
-                        <IconButton :icon="'delete'" :text="'remove'" />
+                        <IconButton :icon="'delete'" :text="'remove'" @click="$parent.showConfirmModal(register, 'remove')" />
                     </td>
                 </tr>
             </tbody>

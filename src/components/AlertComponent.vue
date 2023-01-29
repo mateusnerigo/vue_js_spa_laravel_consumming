@@ -9,7 +9,9 @@
 
     <div class="alert-body">
       <p class="alert-title">{{ $t(this.alertType) }}</p>
-      <p>{{ this.alertText }}</p>
+      <p v-for="(text, index) in this.alertText" :key="`text-${index}`">
+        {{ $t(text) }}
+      </p>
     </div>
   </div>
 </template>
@@ -19,13 +21,13 @@ export default {
     name: 'AlertComponent',
     props: {
         alertType: String,
-        alertText: String,
+        alertText: Array,
     },
     computed: {
       getAlertIcon() {
         switch (this.alertType ) {
           case 'danger' :
-            return 'dangerous';
+            return 'error';
           case 'warning' :
             return 'warning';
           case 'success' :

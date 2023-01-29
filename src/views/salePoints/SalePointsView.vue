@@ -24,6 +24,12 @@
             />
         </transition>
 
+        <transition name="modal-fade" appear>
+            <ConfirmModal
+                v-if="$store.state.isConfirmModalActive"
+            />
+        </transition>
+
     </div>
 </template>
 
@@ -31,12 +37,16 @@
 import Datatable from '@/components/Datatable.vue';
 import IconButton from '@/components/IconButton.vue';
 import SalePointModal from '@/components/SalePointModal.vue';
+import ConfirmModal from '@/components/ConfirmModal.vue';
+
+import generalFunctions from '@/helpers/generalFunctions';
 
 export default {
     name: 'SalePointsView',
     components: {
         Datatable,
         SalePointModal,
+        ConfirmModal,
         IconButton
     },
     data() {
@@ -52,6 +62,9 @@ export default {
             dtPerPage: 10,
             dtSearch: '',
             modalType: '',
+            salePointData: {},
+            confirmModalTitle: '',
+            confirmModalText: '',
             addRegisterText: this.$t("New")
         }
     },
@@ -86,7 +99,20 @@ export default {
 
         showModal(type) {
             this.$store.dispatch('toggleModal', 1);
-            this.modalType= type;
+            this.modalType = type;
+        },
+
+        toggleRegister(registerData) {
+            this.salePointData = {
+                idSalePoints: registerData.idSalePoints,
+                isActive: registerData.isActive
+            };
+        },
+
+        showConfirmModal(salePointData, type) {
+            generalFunctions.handleConfirmModalTexts(type);
+
+            this.$store.dispatch('toggleConfirmModal', 1);
         },
 
         updateDtPage(newDtPage) {

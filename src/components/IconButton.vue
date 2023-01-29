@@ -1,6 +1,9 @@
 <template>
     <button
-        :class="text"
+        :class="[
+            type || text,
+            !icon && 'text-only'
+        ]"
         :title="buttonTitles[text]"
     >
         <span v-if="icon" class="material-icons">{{ icon }} </span>
@@ -14,7 +17,8 @@ export default {
     props: {
         icon: String,
         text: String,
-        innerText: String
+        innerText: String,
+        type: String
     },
     data() {
         return {
@@ -32,7 +36,7 @@ export default {
                 'login': this.$t('Login')
             }
         }
-    }
+    },
 }
 </script>
 
@@ -56,7 +60,8 @@ button {
     &.save,
     &.cancel,
     &.close,
-    &.login {
+    &.login,
+    &.text-only {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -66,7 +71,9 @@ button {
         text-transform: capitalize;
     }
 
-
+    &.text-only {
+        justify-content: center;
+    }
 }
 </style>
 

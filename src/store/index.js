@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 import router from '@/router';
 import axios from 'axios';
-import i18n from '@/i18n.js'
+import i18n from '@/i18n';
 
 import generalFunctions from '@/helpers/generalFunctions';
 
@@ -12,11 +12,19 @@ const loginRoute = `${process.env.VUE_APP_ROOT_API}/login`;
 export default createStore({
   state: {
     isLoggedIn: false,
+
     isModalActive: false,
+
+    isConfirmModalActive: false,
+    confirmModalTitle: '',
+    confirmModalText: '',
+
     isLoadingActive: false,
+
     isAlertActive: false,
-    alertText: '',
+    alertText: [],
     alertType: '',
+
     salePoints: [],
   },
   getters: {},
@@ -29,6 +37,15 @@ export default createStore({
       state.isModalActive = status;
     },
 
+    toggleConfirmModal(state, status) {
+      state.isConfirmModalActive = status;
+    },
+
+    updateConfirmModal(state, modalData) {
+      state.confirmModalTitle = modalData.title;
+      state.confirmModalText = modalData.text;
+    },
+
     toggleLoading(state, status) {
       state.isLoadingActive = status;
     },
@@ -39,7 +56,7 @@ export default createStore({
 
       setTimeout(() => {
         state.isAlertActive = false;
-      }, 2000);
+      }, 5000);
     },
 
     updateAlertData(state, alertData) {
@@ -61,6 +78,14 @@ export default createStore({
       commit('toggleModal', (isActive ? true : false));
     },
 
+    toggleConfirmModal({ commit }, isActive) {
+      commit('toggleConfirmModal', (isActive ? true : false));
+    },
+
+    updateConfirmModal({ commit }, modalData) {
+      commit('updateConfirmModal', modalData);
+    },
+
     toggleLoading({ commit }, isActive) {
       commit('toggleLoading', (isActive ? true : false));
     },
@@ -72,58 +97,61 @@ export default createStore({
 
     updateAlert({ commit }, alertData) {
       commit('updateAlertData', alertData)
+      commit('toggleAlert', true);
     },
 
-    async login({ commit, dispatch }, loginData) {
+    login({ dispatch }, loginData) {
       dispatch('toggleLoading', 1);
 
-      await axios.post(
-        loginRoute,
-        {
-          data: JSON.stringify({
-            userName: loginData.userName,
-            password: loginData.password
-          })
-        },
-      ).then(response => {
-        if ((response.data.type == 'success') &&
-          response.data.data.access_token &&
-          response.data.data.expires_in > 0
-        ) {
-          generalFunctions.setAppCookies([
-            {
-              'name': process.env.VUE_APP_COOKIE_TOKEN_NAME,
-              'value': response.data.data.access_token
-            },
-            {
-              'name': process.env.VUE_APP_COOKIE_TOKEN_TYPE_NAME,
-              'value': response.data.data.token_type
-            }
-          ]);
+      return new Promise(async (resolve, reject) => {
+        await axios.post(loginRoute,
+          {
+            data: JSON.stringify({
+              userName: loginData.userName,
+              password: loginData.password
+            })
+          },
+        ).then(response => {
+          if ((response.data.type == 'success') &&
+            response.data.data.access_token &&
+            response.data.data.expires_in > 0
+          ) {
+            generalFunctions.setAppCookies([
+              {
+                'name': process.env.VUE_APP_COOKIE_TOKEN_NAME,
+                'value': response.data.data.access_token
+              },
+              {
+                'name': process.env.VUE_APP_COOKIE_TOKEN_TYPE_NAME,
+                'value': response.data.data.token_type
+              }
+            ]);
 
-          commit('setIsAuthenticated');
-          commit('toggleLoading', 0);
-          router.push('/loginSuccess');
+            dispatch('setIsAuthenticated');
+            dispatch('toggleLoading', 0);
+            resolve(response);
+            return;
+          }
+
+          if (response.data.msg != '') {
+            dispatch('toggleLoading', 0);
+            dispatch('updateAlert', {
+              "text": [ response.data.msg ],
+              "type": response.data.type
+            })
+            reject('auth')
+            return;
+          }
+        }).catch((errorCatch) => {
+          dispatch('toggleLoading', 0);
+          reject('internal')
           return;
-        }
-
-        if (response.data.msg != '') {
-          dispatch('updateAlert', {
-            "text": response.data.msg,
-            "type": response.data.type
-          })
-
-          dispatch('toggleAlert', true);
-        }
-      }).catch(() => {
-        commit('toggleLoading', 0);
-
-        dispatch('updateAlert', {
-          "text": 'deu errado', //`${i18n.t("serverInternalError")} ${i18n.t("tryAgainLater")}`,
-          "type": 'danger'
-        })
-
-      });
+        });
+      }, error => {
+        dispatch('toggleLoading', 0);
+        reject ('app');
+        return;
+      })
     },
 
     async getSalePoints({ commit }, options) {
@@ -149,8 +177,8 @@ export default createStore({
           this.$router.push('/login');
         });
       }
-
     },
+
     async saveSalePoints({ commit }, newSalePoint) {
       await axios.post(
         salePointsRoute,
@@ -172,9 +200,7 @@ export default createStore({
         console.log(e)
       });
 
-      this.dispatch('getSalePoints', {
-        "updateList": true
-      });
+      this.dispatch('getSalePoints', { "updateList": true });
       this.dispatch('toggleModal', 0);
     }
   },

@@ -32,6 +32,7 @@
                             v-if="confirmButtonOptions.show"
                             :icon="confirmButtonOptions.icon"
                             :text="confirmButtonOptions.text"
+                            :type="confirmButtonOptions.type"
                             :innerText="confirmButtonOptions.innerText"
                             @click="this.emitCallback"
                         />
@@ -55,14 +56,14 @@ export default {
             type: Object,
             default: {
                 "text": "confirm",
-                "show": false
+                "show": true
             }
         },
         cancelButtonOptions: {
             type: Object,
             default: {
                 "text": "cancel",
-                "show": false
+                "show": true
             }
         },
         headerText: String,
@@ -80,6 +81,7 @@ export default {
     methods: {
         dismissModal() {
             this.$store.dispatch('toggleModal', 0);
+            this.$store.dispatch('toggleConfirmModal', 0);
         },
         emitCallback() {
             this.$emit('emitCallback');
@@ -149,11 +151,12 @@ export default {
         }
 
         .modal-footer {
+            margin-top: 2rem;
             display: flex;
             justify-content: flex-end;
+
             .modal-footer-buttons {
                 display: flex;
-
             }
         }
     }

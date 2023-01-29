@@ -1,7 +1,7 @@
 <template>
      <div
         class="input-group"
-        :class="`${this.width}`"
+        :class="width"
      >
         <label :for="name">{{ label }}</label>
         <input
@@ -45,7 +45,7 @@ export default {
         },
         width: {
             type: String,
-            default: 'md'
+            default: 'lg'
         }
     },
 
@@ -66,24 +66,25 @@ export default {
 .input-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2rem;
-    padding: 0 1rem;
+    margin-bottom: 1rem;
 
     &.sm {
-        width: 15vw;
+        width: 23.5%;
     }
 
     &.md {
-        width: 32vw;
+        width: 48.5%;
     }
 
     &.lg {
-        width: 66vw;
+        width: 100%;
     }
+
 
     label {
         font-size: 0.75rem;
-        padding: .25rem .25rem 0;
+        padding-top: .25rem;
+        padding-bottom: .25rem;
         color: $dark_gray;
     }
 
@@ -92,7 +93,9 @@ export default {
         background-color: transparent;
         border-bottom: 1.5px solid $gray;
         font-size: 0.85rem;
-        padding: 0.5rem
+        border-radius: 0;
+        padding: .25rem 0 .25rem;
+
     }
 }
 </style>
