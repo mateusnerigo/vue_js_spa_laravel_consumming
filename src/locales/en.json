@@ -58,5 +58,7 @@
   "deactivatedSuccessfully": "deactivated successfuly!",
   " ": " ",
   "errorOnActivatingRegister": "Error on activating register!",
-  "errorOnDeactivatingRegister": "Error on deactivating register!"
+  "errorOnDeactivatingRegister": "Error on deactivating register!",
+  "newRegisterCreatedSuccessfully": "New register created successfully!",
+  "errorOnCreatingNewRegister": "Error on creating new register!"
 }

@@ -69,7 +69,7 @@ export default createStore({
 
       setTimeout(() => {
         state.isAlertActive = false;
-      }, 5000);
+      }, 2500);
     },
 
     updateAlertData(state, alertData) {
@@ -212,7 +212,9 @@ export default createStore({
       }
     },
 
-    async saveSalePoints({ commit }, newSalePoint) {
+    async saveSalePoints({ dispatch }, newSalePoint) {
+      dispatch('toggleLoading', 1);
+
       await axios.post(
         routes['salePoints'],
         {
@@ -228,9 +230,16 @@ export default createStore({
           }
         },
       ).then(response => {
-        console.log(response);
+        dispatch('updateAlert', {
+          'text': [ "newRegisterCreatedSuccessfully" ],
+          'type': 'success'
+        })
       }).catch((e) => {
         console.log(e)
+        dispatch('updateAlert', {
+          'text': [ "errorOnCreatingNewRegister" ],
+          'type': 'danger'
+        })
       });
 
       this.dispatch('getSalePoints', true);
