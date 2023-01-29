@@ -4,6 +4,7 @@
         :size="'sm'"
         :confirmButtonOptions="this.confirmButtonOptions"
         :cancelButtonOptions="this.cancelButtonOptions"
+        @emitCallback="this.$store.dispatch($store.state.confirmModalCallback)"
     >
         <div class="confirm-modal-body">
             <div class="confirm-modal-icon">

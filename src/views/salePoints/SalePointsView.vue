@@ -89,12 +89,12 @@ export default {
 
     methods: {
         getSalePoints(updateList = false) {
-            this.$store.dispatch('getSalePoints', {
-                updateList,
+            this.$store.dispatch('setSalePointsDatatableOptions', {
                 page: this.dtPage,
                 perPage: this.dtPerPage,
                 search: this.dtSearch
-            });
+            })
+            this.$store.dispatch('getSalePoints', updateList);
         },
 
         showModal(type) {
@@ -110,8 +110,16 @@ export default {
         },
 
         showConfirmModal(salePointData, type) {
-            generalFunctions.handleConfirmModalTexts(type);
-
+            this.$store.dispatch('setConfirmModalData', {
+                type,
+                callback: 'toggleRegister',
+                data: {
+                    registerIdToToggle: salePointData.idSalePoints,
+                    registerName: salePointData.salePointName,
+                    registerStatus: salePointData.isActive,
+                    route: 'salePoints'
+                }
+            });
             this.$store.dispatch('toggleConfirmModal', 1);
         },
 

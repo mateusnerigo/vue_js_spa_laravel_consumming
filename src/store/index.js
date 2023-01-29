@@ -2,12 +2,14 @@ import { createStore } from 'vuex'
 
 import router from '@/router';
 import axios from 'axios';
-import i18n from '@/i18n';
 
 import generalFunctions from '@/helpers/generalFunctions';
 
-const salePointsRoute = `${process.env.VUE_APP_ROOT_API}/salePoints`;
-const loginRoute = `${process.env.VUE_APP_ROOT_API}/login`;
+const routes = {
+  'login': `${process.env.VUE_APP_ROOT_API}/login`,
+  'salePoints': `${process.env.VUE_APP_ROOT_API}/salePoints`,
+}
+
 
 export default createStore({
   state: {
@@ -18,6 +20,8 @@ export default createStore({
     isConfirmModalActive: false,
     confirmModalTitle: '',
     confirmModalText: '',
+    confirmModalCallback: '',
+    confirmModalCallbackData: {},
 
     isLoadingActive: false,
 
@@ -26,6 +30,9 @@ export default createStore({
     alertType: '',
 
     salePoints: [],
+    salePointsDtPage: 1,
+    salePointsDtPerPage: 10,
+    salePointsDtSearch: '',
   },
   getters: {},
   mutations: {
@@ -44,6 +51,12 @@ export default createStore({
     updateConfirmModal(state, modalData) {
       state.confirmModalTitle = modalData.title;
       state.confirmModalText = modalData.text;
+      state.confirmModalCallback = modalData.callback;
+    },
+
+    updateConfirmModalCallbackData(state, modalCallbackData) {
+      state.confirmModalCallback = modalCallbackData.callback;
+      state.confirmModalCallbackData = modalCallbackData.data;
     },
 
     toggleLoading(state, status) {
@@ -62,6 +75,12 @@ export default createStore({
     updateAlertData(state, alertData) {
       state.alertText = alertData.text;
       state.alertType = alertData.type;
+    },
+
+    setSalePointsDatatableOptions(state, options) {
+      state.salePointsDtPage = options.page;
+      state.salePointsDtPerPage = options.perPage;
+      state.salePointsDtSearch = options.search;
     },
 
     updateSalePoints(state, data) {
@@ -86,6 +105,12 @@ export default createStore({
       commit('updateConfirmModal', modalData);
     },
 
+    setConfirmModalData({ commit }, callbackData) {
+      generalFunctions.handleConfirmModalTexts(callbackData.type);
+
+      commit('updateConfirmModalCallbackData', callbackData);
+    },
+
     toggleLoading({ commit }, isActive) {
       commit('toggleLoading', (isActive ? true : false));
     },
@@ -104,7 +129,7 @@ export default createStore({
       dispatch('toggleLoading', 1);
 
       return new Promise(async (resolve, reject) => {
-        await axios.post(loginRoute,
+        await axios.post(routes['login'],
           {
             data: JSON.stringify({
               userName: loginData.userName,
@@ -154,14 +179,20 @@ export default createStore({
       })
     },
 
-    async getSalePoints({ commit }, options) {
-      if ((this.state.salePoints.length === 0) || options.updateList) {
+    setSalePointsDatatableOptions({ commit }, options) {
+      commit('setSalePointsDatatableOptions', options);
+    },
+
+    async getSalePoints({ dispatch, commit }, updateList = false) {
+      if ((this.state.salePoints.length === 0) || updateList) {
+        dispatch('toggleLoading', 1);
+
         await axios.get(
           generalFunctions.prepareRouteParams({
-            route: salePointsRoute,
-            page: (options.page ?? 1),
-            perPage: (options.perPage ?? 10),
-            search: (options.search ?? '')
+            route: routes['salePoints'],
+            page: (this.state.salePointsDtPage ?? 1),
+            perPage: (this.state.salePointsDtPerPage ?? 10),
+            search: (this.state.salePointsDtSearch ?? '')
           }),
           {
             headers: {
@@ -172,16 +203,18 @@ export default createStore({
           if (response.data.total > 0) {
             commit('updateSalePoints', response.data);
           }
+
+          dispatch('toggleLoading', 0);
         }).catch((e) => {
           console.log(e)
-          this.$router.push('/login');
+          router.push('/login');
         });
       }
     },
 
     async saveSalePoints({ commit }, newSalePoint) {
       await axios.post(
-        salePointsRoute,
+        routes['salePoints'],
         {
           data: JSON.stringify({
             idSalePoints: (newSalePoint.idSalePoints ?? ''),
@@ -200,9 +233,43 @@ export default createStore({
         console.log(e)
       });
 
-      this.dispatch('getSalePoints', { "updateList": true });
+      this.dispatch('getSalePoints', true);
       this.dispatch('toggleModal', 0);
+    },
+
+    async toggleRegister({ dispatch }) {
+      dispatch('toggleConfirmModal', 0);
+      dispatch('toggleLoading', 1);
+
+      const registerData = this.state.confirmModalCallbackData;
+
+      await axios.get(
+        `${routes[registerData.route]}/toggle/${registerData.registerIdToToggle}`,
+        { headers: { 'Authorization': generalFunctions.getAuthorization() } },
+      ).then(response => {
+        dispatch('getSalePoints', true);
+
+        const alertText = (registerData.registerStatus)
+          ? "deactivatedSuccessfully"
+          : "activatedSuccessfully"
+
+        dispatch('updateAlert', {
+          'text': [ registerData.registerName, " ", alertText ],
+          'type': 'success'
+        })
+      }).catch((e) => {
+        const alertText = (registerData.registerStatus)
+          ? "Deactivating"
+          : "Activating"
+
+        dispatch('getSalePoints', true);
+        dispatch('updateAlert', {
+          'text': [ `errorOn${alertText}Register` ],
+          'type': 'danger'
+        })
+      });
     }
+
   },
   modules: {
   }

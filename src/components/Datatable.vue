@@ -55,8 +55,6 @@
                             <IconButton :icon="'visibility'" :text="'view'" />
                             <IconButton :icon="'done'" :text="'activate'" @click="$parent.showConfirmModal(register, 'activate')" />
                         </template>
-
-                        <IconButton :icon="'delete'" :text="'remove'" @click="$parent.showConfirmModal(register, 'remove')" />
                     </td>
                 </tr>
             </tbody>

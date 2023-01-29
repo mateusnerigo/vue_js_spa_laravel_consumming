@@ -82,10 +82,7 @@ export default {
         } else if (type == 'deactivate') {
             title = "DeactivateRegister";
             text = "onConfirmThisRegisterWillNotBeAbleForUseOrEdits";
-        } else if (type == 'remove') {
-            title = "RemoveRegister";
-            text = "beCarefulOnConfirmThisRegisterWillNeverBeAbleForUseOrEditsAgain";
-        }
+        } 
 
         store.dispatch('updateConfirmModal', { title, text });
     }

@@ -9,9 +9,9 @@
 
     <div class="alert-body">
       <p class="alert-title">{{ $t(this.alertType) }}</p>
-      <p v-for="(text, index) in this.alertText" :key="`text-${index}`">
+      <span v-for="(text, index) in this.alertText" :key="`text-${index}`">
         {{ $t(text) }}
-      </p>
+      </span>
     </div>
   </div>
 </template>
@@ -57,6 +57,7 @@ export default {
   flex-direction: row;
   flex-wrap: nowrap;
   flex: 1 auto;
+  z-index: 999;
 
   .alert-icon {
     display: flex;
