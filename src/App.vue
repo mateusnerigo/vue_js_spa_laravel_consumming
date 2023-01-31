@@ -111,14 +111,14 @@ export default ({
       filter: brightness(1.1);
     }
 
-    .material-icons {
+    .material-symbols-outlined {
       font-size: 0.9rem
     }
   }
 
   .router-view {
     margin-left: $sidebar_wraped_width;
-    padding: 3rem 5rem;
+    padding: 2rem 3rem;
     width: $page_width;
   }
 
@@ -156,7 +156,7 @@ export default ({
   .alert-transition-leave-active {
     transition: 0.5s ease-in-out;
 
-    .material-icons {
+    .material-symbols-outlined {
       transition: 0.5s ease-in-out;
     }
   }
@@ -167,7 +167,7 @@ export default ({
 
     transform: translateY(-5rem);
 
-    .material-icons {
+    .material-symbols-outlined {
       transform: scale(1.5);
     }
   }

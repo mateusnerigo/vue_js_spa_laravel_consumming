@@ -8,6 +8,7 @@
     >
         <div class="form-group">
             <div class="form-row">
+                <input type="hidden" v-model="this.idSalePoints">
                 <InputGroup
                     v-bind="this.inputGroups.nameInput"
                     v-model="this.name"
@@ -30,7 +31,11 @@ export default {
     name: 'EditSalePointModal',
     props: {
         salePointsData: Object,
-        type: String
+        type: String,
+        registerData: {
+            type: Object,
+            default: {}
+        }
     },
     components: {
         Modal,
@@ -40,23 +45,25 @@ export default {
         return {
             headerText: this.$t('SalePoint'),
             confirmButtonOptions: {
-                "show": true,
+                "show": (this.type != 'view'),
                 "text": "confirm",
                 "innerText": "confirm"
             },
             cancelButtonOptions: {
-                "show": true,
+                "show": (this.type != 'view'),
                 "text": "close",
                 "innerText": "close",
             },
 
-            name: '',
-            description: '',
+            idSalePoints: (this.registerData.idSalePoints ?? ''),
+            name: (this.registerData.salePointName ?? ''),
+            description: (this.registerData.description ?? ''),
 
             inputGroups: {
                 nameInput: {
                     "name": "salePointName",
                     "type": "text",
+                    "readonly": (this.type === 'view'),
                     "id": "sale-point-name",
                     "label": this.$t("name"),
                     "placeholder": this.$t("SalePointName"),
@@ -65,9 +72,10 @@ export default {
                 descriptionInput: {
                     "name": "salePointDescription",
                     "type": "text",
+                    "readonly": (this.type === 'view'),
                     "id": "sale-point-description",
                     "label": this.$t("description"),
-                    "placeholder": this.$t("SalePointDescription"),
+                    "placeholder": (this.type === 'view') ? this.$t("noDescription") : this.$t("SalePointDescription"),
                     "width": 'md'
                 },
             },
@@ -82,6 +90,7 @@ export default {
             this.$store.dispatch(
                 'saveSalePoints',
                 {
+                    "idSalePoints": this.idSalePoints,
                     "name": this.name,
                     "description": this.description
                 }

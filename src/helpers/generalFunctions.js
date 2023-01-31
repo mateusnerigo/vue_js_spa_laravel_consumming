@@ -60,6 +60,7 @@ export default {
                 "text": [ "internalServerError", "tryAgainLater" ],
                 "type": "danger"
             });
+            store.dispatch('toggleAlert', 1);
             return;
         }
 
@@ -68,6 +69,7 @@ export default {
                 "text": [ "unexpectedApplicationError", "pleaseContactSupport" ],
                 "type": "danger"
             });
+            store.dispatch('toggleAlert', 1);
             return;
         }
     },
@@ -82,7 +84,7 @@ export default {
         } else if (type == 'deactivate') {
             title = "DeactivateRegister";
             text = "onConfirmThisRegisterWillNotBeAbleForUseOrEdits";
-        } 
+        }
 
         store.dispatch('updateConfirmModal', { title, text });
     }

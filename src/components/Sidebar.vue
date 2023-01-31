@@ -8,7 +8,7 @@
 
         <div class="sidebar-toggle-wrap">
             <button class="sidebar-toggle" @click="toggleSidebar">
-                <span class="material-icons">keyboard_double_arrow_right</span>
+                <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
             </button>
         </div>
 
@@ -50,7 +50,7 @@ export default {
                 },
                 {
                     "route": "salePoints",
-                    "icon": "store_front",
+                    "icon": "store",
                     "text": this.$t("SalePoints"),
                 },
                 {
@@ -134,14 +134,14 @@ export default {
             .sidebar-toggle {
                 transition: .2s ease-out;
 
-                .material-icons{
+                .material-symbols-outlined{
                     font-size: 2rem;
                     color: $white;
                     transition: .2s ease-out;
                 }
 
                 &:hover {
-                    .material-icons {
+                    .material-symbols-outlined {
                         color: $dark_white;
                         transform: translateX(0.25rem);
                     }
@@ -181,7 +181,7 @@ export default {
             }
 
             :deep(.sidebar-button) {
-                .material-icons {
+                .material-symbols-outlined {
                     margin-right: 1rem;
                 }
             }

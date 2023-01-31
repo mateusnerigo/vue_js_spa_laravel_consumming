@@ -8,7 +8,7 @@
             'sidebar-last-item': lastItem
         }"
     >
-        <span class="material-icons">{{ icon }}</span>
+        <span class="material-symbols-outlined">{{ icon }}</span>
         <span class="text">{{ text }}</span>
         <span class="mouse-over-text">{{ text }}</span>
     </router-link>
@@ -49,7 +49,7 @@ export default {
     transition: .2s ease-in-out;
     padding: 0.5rem 1.25rem;
 
-    .material-icons {
+    .material-symbols-outlined {
         font-size: 1.5rem;
         width: 1.5rem;
         color: $white;
@@ -76,7 +76,7 @@ export default {
     &:hover {
         background-color: $dark_purple;
 
-        .material-icons, .text {
+        .material-symbols-outlined, .text {
             color: $dark_white;
         }
 
@@ -91,7 +91,7 @@ export default {
         padding: 0.5rem 1rem;
 
 
-        .material-icons, .text {
+        .material-symbols-outlined, .text {
             color: $dark_white;
         }
     }

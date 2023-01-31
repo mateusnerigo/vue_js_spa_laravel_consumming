@@ -4,7 +4,7 @@
     class="alert-container"
   >
     <div class="alert-icon">
-      <span class="material-icons">{{ getAlertIcon }} </span>
+      <span class="material-symbols-outlined">{{ getAlertIcon }} </span>
     </div>
 
     <div class="alert-body">
@@ -64,7 +64,7 @@ export default {
     align-items: center;
     justify-content: center;
 
-    .material-icons {
+    .material-symbols-outlined {
       font-size: 2.5rem;
       padding-right: 1.5rem;
     }
@@ -79,7 +79,7 @@ export default {
   &.danger {
     border-bottom: .35rem solid $dark_red;
 
-    .material-icons {
+    .material-symbols-outlined {
       color: $dark_red;
     }
   }
@@ -87,7 +87,7 @@ export default {
   &.warning {
     border-bottom: .35rem solid $dark_yellow;
 
-    .material-icons {
+    .material-symbols-outlined {
       color: $dark_yellow;
     }
   }
@@ -95,7 +95,7 @@ export default {
   &.success {
     border-bottom: .35rem solid $dark_green;
 
-    .material-icons {
+    .material-symbols-outlined {
       	color: $dark_green;
     }
   }

@@ -93,7 +93,6 @@ export default createStore({
     },
 
     toggleModal({ commit }, isActive) {
-      commit('toggleLoading', false);
       commit('toggleModal', (isActive ? true : false));
     },
 
@@ -116,13 +115,13 @@ export default createStore({
     },
 
     toggleAlert({ commit }, isActive) {
-      commit('toggleLoading', false);
-      commit('toggleAlert', (isActive ? true : false));
+      if (this.state.alertText && this.state.alertType) {
+        commit('toggleAlert', (isActive ? true : false));
+      }
     },
 
     updateAlert({ commit }, alertData) {
       commit('updateAlertData', alertData)
-      commit('toggleAlert', true);
     },
 
     login({ dispatch }, loginData) {
@@ -164,6 +163,8 @@ export default createStore({
               "text": [ response.data.msg ],
               "type": response.data.type
             })
+            dispatch('toggleAlert', 1);
+
             reject('auth')
             return;
           }
@@ -205,6 +206,7 @@ export default createStore({
           }
 
           dispatch('toggleLoading', 0);
+          dispatch('toggleAlert', 1);
         }).catch((e) => {
           console.log(e)
           router.push('/login');
@@ -214,6 +216,11 @@ export default createStore({
 
     async saveSalePoints({ dispatch }, newSalePoint) {
       dispatch('toggleLoading', 1);
+
+      let alertTexts = {
+        success: newSalePoint.idSalePoints ? "registerUpdatedSuccessfully" : "newRegisterCreatedSuccessfully",
+        error: newSalePoint.idSalePoints ? "errorOnUpdatingRegister" : "errorOnCreatingNewRegister"
+      }
 
       await axios.post(
         routes['salePoints'],
@@ -230,19 +237,27 @@ export default createStore({
           }
         },
       ).then(response => {
+        console.log(response);
         dispatch('updateAlert', {
-          'text': [ "newRegisterCreatedSuccessfully" ],
-          'type': 'success'
+          'text': [ response.data.type == 'success' ? alertTexts.success : response.data.msg ],
+          'type': response.data.type
         })
+
+        if (response.data.type != 'success') {
+          dispatch('toggleAlert', 1);
+          return;
+        }
       }).catch((e) => {
         console.log(e)
         dispatch('updateAlert', {
-          'text': [ "errorOnCreatingNewRegister" ],
+          'text': [ alertTexts.error ],
           'type': 'danger'
         })
+        dispatch('toggleAlert', 1);
       });
 
       this.dispatch('getSalePoints', true);
+      this.dispatch('toggleLoading', 0);
       this.dispatch('toggleModal', 0);
     },
 
@@ -266,6 +281,7 @@ export default createStore({
           'text': [ registerData.registerName, " ", alertText ],
           'type': 'success'
         })
+        dispatch('toggleAlert', 1);
       }).catch((e) => {
         const alertText = (registerData.registerStatus)
           ? "Deactivating"

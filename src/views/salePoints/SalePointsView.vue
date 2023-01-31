@@ -21,6 +21,7 @@
             <SalePointModal
                 v-if="$store.state.isModalActive"
                 :type="this.modalType"
+                :registerData="this.modalData"
             />
         </transition>
 
@@ -38,8 +39,6 @@ import Datatable from '@/components/Datatable.vue';
 import IconButton from '@/components/IconButton.vue';
 import SalePointModal from '@/components/SalePointModal.vue';
 import ConfirmModal from '@/components/ConfirmModal.vue';
-
-import generalFunctions from '@/helpers/generalFunctions';
 
 export default {
     name: 'SalePointsView',
@@ -62,6 +61,7 @@ export default {
             dtPerPage: 10,
             dtSearch: '',
             modalType: '',
+            modalData: {},
             salePointData: {},
             confirmModalTitle: '',
             confirmModalText: '',
@@ -97,9 +97,11 @@ export default {
             this.$store.dispatch('getSalePoints', updateList);
         },
 
-        showModal(type) {
-            this.$store.dispatch('toggleModal', 1);
+        showModal(type, data) {
+            this.modalData = data;
             this.modalType = type;
+
+            this.$store.dispatch('toggleModal', 1);
         },
 
         toggleRegister(registerData) {

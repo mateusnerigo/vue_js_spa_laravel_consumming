@@ -1,16 +1,17 @@
 <template>
      <div
         class="input-group"
-        :class="width"
+        :class="this.width"
      >
-        <label :for="name">{{ label }}</label>
+        <label :for="this.name">{{ this.label }}</label>
         <input
-            :type="type"
-            :name="name"
-            :id="id"
-            :placeholder="placeholder"
-            :value="modelValue"
-            @input="updateValue"
+            :type="this.type"
+            :readonly="this.readonly"
+            :name="this.name"
+            :id="this.id"
+            :placeholder="this.placeholder"
+            :value="this.modelValue"
+            @input="this.updateValue"
         >
     </div>
 </template>
@@ -26,6 +27,10 @@ export default {
         type: {
             type: String,
             required: true
+        },
+        readonly: {
+            type: Boolean,
+            default: false
         },
         id: {
             type: String,
@@ -96,6 +101,9 @@ export default {
         border-radius: 0;
         padding: .25rem 0 .25rem;
 
+        &:read-only {
+            border: none;
+        }
     }
 }
 </style>

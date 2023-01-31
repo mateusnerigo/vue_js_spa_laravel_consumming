@@ -53,12 +53,14 @@
   "pleaseContactSupport": "Please contact support.",
   "onConfirmThisRegisterWillBeAbleForUseAndEdits": "On confirm, this register will be able for use or edit.",
   "onConfirmThisRegisterWillNotBeAbleForUseOrEdits": "On confirm, this register will not be able for use or edit.",
-  "beCarefulOnConfirmThisRegisterWillNeverBeAbleForUseOrEditsAgain": "Be careful! On confirm, this register will never be able for use or edit again.",
   "activatedSuccessfully": "activated successfuly!",
   "deactivatedSuccessfully": "deactivated successfuly!",
   " ": " ",
   "errorOnActivatingRegister": "Error on activating register!",
   "errorOnDeactivatingRegister": "Error on deactivating register!",
   "newRegisterCreatedSuccessfully": "New register created successfully!",
-  "errorOnCreatingNewRegister": "Error on creating new register!"
+  "errorOnCreatingNewRegister": "Error on creating new register!",
+  "edit": "Edit",
+  "view": "View",
+  "noDescription": "No description"
 }

@@ -14,7 +14,7 @@
             </div>
 
             <div class="search-box">
-                <span class="material-icons">search</span>
+                <span class="material-symbols-outlined">search</span>
                 <input
                     type="text"
                     :placeholder="$t('search')"
@@ -47,12 +47,12 @@
                     </td>
                     <td>
                         <template v-if="register.isActive">
-                            <IconButton :icon="'edit'" :text="'edit'" @click="$parent.showModal('edit')"/>
+                            <IconButton :icon="'edit'" :text="'edit'" @click="$parent.showModal('edit', register)"/>
                             <IconButton :icon="'close'" :text="'deactivate'" @click="$parent.showConfirmModal(register, 'deactivate')" />
                         </template>
 
                         <template v-else>
-                            <IconButton :icon="'visibility'" :text="'view'" />
+                            <IconButton :icon="'visibility'" :text="'view'" @click="$parent.showModal('view', register), register"/>
                             <IconButton :icon="'done'" :text="'activate'" @click="$parent.showConfirmModal(register, 'activate')" />
                         </template>
                     </td>
@@ -209,7 +209,7 @@ export default {
             align-items: center;
             position: relative;
 
-            .material-icons {
+            .material-symbols-outlined {
                 position: absolute;
                 background: white;
                 padding: 0.5rem 0;
@@ -229,6 +229,10 @@ export default {
         font-size: 0.85rem;
         padding: 0.5rem 0;
         border-top: 1px solid $dark_white;
+
+        background-color: $white;
+        position: sticky;
+        bottom: 0;
 
         .actual-page {
             background-color: $purple;
@@ -258,7 +262,6 @@ export default {
 
         tbody {
             tr {
-                // border-bottom: 1px solid $dark_white;
                 transition: .2s ease-in-out;
 
                 &:hover {

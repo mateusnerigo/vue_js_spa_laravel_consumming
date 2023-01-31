@@ -6,7 +6,10 @@
         ]"
         :title="buttonTitles[text]"
     >
-        <span v-if="icon" class="material-icons">{{ icon }} </span>
+        <span v-if="icon"
+            class="material-symbols-outlined"
+            :class="[ !innerText && 'icon-only' ]"
+        >{{ icon }} </span>
         <template v-if="innerText">{{ innerText }}</template>
     </button>
 </template>
@@ -43,6 +46,12 @@ export default {
 <style lang="scss" scoped>
 @import '/src/scss/variables.scss';
 button {
+    padding: 0;
+    
+    .material-symbols-outlined.icon-only {
+        padding: 0.5rem;
+    }
+
     &.view  { background-color: $dark_yellow; }
     &.edit { background-color: $yellow; }
     &.add { background-color: $green; }

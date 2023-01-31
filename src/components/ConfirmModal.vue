@@ -8,7 +8,7 @@
     >
         <div class="confirm-modal-body">
             <div class="confirm-modal-icon">
-                <div class="material-icons">error</div>
+                <div class="material-symbols-outlined">error</div>
             </div>
 
             <div class="confirm-modal-text">
@@ -60,7 +60,7 @@ export default {
     padding: 0 1.5rem;
 
     .confirm-modal-icon {
-        .material-icons {
+        .material-symbols-outlined {
             width: 100%;
             color: $yellow;
             font-size: 2.5rem;
