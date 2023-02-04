@@ -14,6 +14,7 @@ const routes = {
 export default createStore({
   state: {
     isLoggedIn: false,
+    isLoadingActive: false,
 
     isModalActive: false,
 
@@ -22,8 +23,6 @@ export default createStore({
     confirmModalText: '',
     confirmModalCallback: '',
     confirmModalCallbackData: {},
-
-    isLoadingActive: false,
 
     isAlertActive: false,
     alertText: [],
@@ -206,7 +205,6 @@ export default createStore({
           }
 
           dispatch('toggleLoading', 0);
-          dispatch('toggleAlert', 1);
         }).catch((e) => {
           console.log(e)
           router.push('/login');
@@ -237,11 +235,12 @@ export default createStore({
           }
         },
       ).then(response => {
-        console.log(response);
         dispatch('updateAlert', {
           'text': [ response.data.type == 'success' ? alertTexts.success : response.data.msg ],
           'type': response.data.type
         })
+        dispatch('toggleAlert', 1);
+
 
         if (response.data.type != 'success') {
           dispatch('toggleAlert', 1);

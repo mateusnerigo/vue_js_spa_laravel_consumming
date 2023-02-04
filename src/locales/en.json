@@ -59,8 +59,10 @@
   "errorOnActivatingRegister": "Error on activating register!",
   "errorOnDeactivatingRegister": "Error on deactivating register!",
   "newRegisterCreatedSuccessfully": "New register created successfully!",
-  "errorOnCreatingNewRegister": "Error on creating new register!",
+  "errorOnCreatingNewRegister": "Error on creating new register.",
   "edit": "Edit",
   "view": "View",
-  "noDescription": "No description"
+  "noDescription": "No description",
+  "registerUpdatedSuccessfully": "Register updated successfully!",
+  "errorOnUpdatingRegister": "Error on updating register."
 }

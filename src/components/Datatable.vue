@@ -46,13 +46,13 @@
                         {{ register[field.field] }}
                     </td>
                     <td>
+                        <IconButton :icon="'visibility'" :text="'view'" @click="$parent.showModal('view', register), register"/>
+
                         <template v-if="register.isActive">
                             <IconButton :icon="'edit'" :text="'edit'" @click="$parent.showModal('edit', register)"/>
                             <IconButton :icon="'close'" :text="'deactivate'" @click="$parent.showConfirmModal(register, 'deactivate')" />
                         </template>
-
                         <template v-else>
-                            <IconButton :icon="'visibility'" :text="'view'" @click="$parent.showModal('view', register), register"/>
                             <IconButton :icon="'done'" :text="'activate'" @click="$parent.showConfirmModal(register, 'activate')" />
                         </template>
                     </td>

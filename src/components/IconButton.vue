@@ -47,12 +47,12 @@ export default {
 @import '/src/scss/variables.scss';
 button {
     padding: 0;
-    
+
     .material-symbols-outlined.icon-only {
         padding: 0.5rem;
     }
 
-    &.view  { background-color: $dark_yellow; }
+    &.view  { background-color: $orange; }
     &.edit { background-color: $yellow; }
     &.add { background-color: $green; }
     &.activate { background-color: $dark_green; }

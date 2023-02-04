@@ -59,8 +59,10 @@
   "errorOnActivatingRegister": "Erro ao ativar registro!",
   "errorOnDeactivatingRegister": "Erro ao desativar regsitro!",
   "newRegisterCreatedSuccessfully": "Novo registro criado com sucesso!",
-  "errorOnCreatingNewRegister": "Erro ao criar novo registro!",
+  "errorOnCreatingNewRegister": "Erro ao criar novo registro.",
   "edit": "Editar",
   "view": "Visualizar",
-  "noDescription": "Sem descrição"
+  "noDescription": "Sem descrição",
+  "registerUpdatedSuccessfully": "Registro atualizado com sucesso!",
+  "errorOnUpdatingRegister": "Erro ao atualizar registro."
 }
