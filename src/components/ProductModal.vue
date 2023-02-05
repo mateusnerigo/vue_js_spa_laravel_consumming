@@ -4,19 +4,19 @@
         :size="'md'"
         :confirmButtonOptions="this.confirmButtonOptions"
         :cancelButtonOptions="this.cancelButtonOptions"
-        @emitCallback="saveSalePoint"
+        @emitCallback="saveProducts"
     >
         <div class="form-group">
             <div class="form-row">
-                <input type="hidden" v-model="this.idSalePoints">
+                <input type="hidden" v-model="this.idProducts">
                 <InputGroup
                     v-bind="this.inputGroups.nameInput"
                     v-model="this.name"
                 />
 
                 <InputGroup
-                    v-bind="this.inputGroups.descriptionInput"
-                    v-model="this.description"
+                    v-bind="this.inputGroups.standardValueInput"
+                    v-model="this.standardValue"
                 />
             </div>
         </div>
@@ -28,7 +28,7 @@ import Modal from './Modal.vue';
 import InputGroup from './InputGroup.vue';
 
 export default {
-    name: 'SalePointModal',
+    name: 'ProductModal',
     props: {
         type: String,
         registerData: {
@@ -42,7 +42,7 @@ export default {
     },
     data() {
         return {
-            headerText: this.$t('SalePoint'),
+            headerText: this.$t('Product'),
             confirmButtonOptions: {
                 "show": (this.type != 'view'),
                 "text": "confirm",
@@ -54,27 +54,27 @@ export default {
                 "innerText": "close",
             },
 
-            idSalePoints: (this.registerData.idSalePoints ?? ''),
-            name: (this.registerData.salePointName ?? ''),
-            description: (this.registerData.description ?? ''),
+            idProducts: (this.registerData.idProducts ?? ''),
+            name: (this.registerData.productName ?? ''),
+            standardValue: (this.registerData.standardValue ?? ''),
 
             inputGroups: {
                 nameInput: {
-                    "name": "salePointName",
+                    "name": "productName",
                     "type": "text",
                     "readonly": (this.type === 'view'),
-                    "id": "sale-point-name",
+                    "id": "product-name",
                     "label": this.$t("name"),
-                    "placeholder": this.$t("SalePointName"),
+                    "placeholder": this.$t("ProductName"),
                     "width": 'md'
                 },
-                descriptionInput: {
-                    "name": "salePointDescription",
-                    "type": "text",
+                standardValueInput: {
+                    "name": "standardValue",
+                    "type": "number",
                     "readonly": (this.type === 'view'),
-                    "id": "sale-point-description",
-                    "label": this.$t("description"),
-                    "placeholder": (this.type === 'view') ? this.$t("noDescription") : this.$t("SalePointDescription"),
+                    "id": "standard-value",
+                    "label": this.$t("standardValue"),
+                    "placeholder": (this.type === 'view') ? '0.00' : this.$t("standardValue"),
                     "width": 'md'
                 },
             },
@@ -85,13 +85,13 @@ export default {
         this.headerText += ` - ${this.$t(this.type)}`;
     },
     methods: {
-        saveSalePoint() {
+        saveProducts() {
             this.$store.dispatch(
-                'saveSalePoints',
+                'saveProducts',
                 {
-                    "idSalePoints": this.idSalePoints,
-                    "name": this.name,
-                    "description": this.description
+                    "idProducts": this.idProducts,
+                    "productName": this.name,
+                    "standardValue": this.standardValue
                 }
             );
         }

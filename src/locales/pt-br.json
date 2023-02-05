@@ -64,5 +64,9 @@
   "view": "Visualizar",
   "noDescription": "Sem descrição",
   "registerUpdatedSuccessfully": "Registro atualizado com sucesso!",
-  "errorOnUpdatingRegister": "Erro ao atualizar registro."
+  "errorOnUpdatingRegister": "Erro ao atualizar registro.",
+  "active": "Ativo",
+  "inactive": "Inativo",
+  "standardValue": "Valor padrão",
+  "ProductName": "Nome do produto"
 }

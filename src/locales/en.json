@@ -3,6 +3,7 @@
   "SalePoints": "Sale points",
   "SalePoint": "Sale point",
   "Products": "Products",
+  "Product": "Product",
   "Sales": "Sales",
   "Logout": "Logout",
   "Home": "Home",
@@ -34,7 +35,7 @@
   "tryAgainLater": "Try again later.",
   "search": "Search",
   "resultsPerPage": "results per page",
-  "Showing": "showing",
+  "Showing": "Showing",
   "to": "to",
   "from": "from",
   "registers": "registers",
@@ -64,5 +65,9 @@
   "view": "View",
   "noDescription": "No description",
   "registerUpdatedSuccessfully": "Register updated successfully!",
-  "errorOnUpdatingRegister": "Error on updating register."
+  "errorOnUpdatingRegister": "Error on updating register.",
+  "active": "Active",
+  "inactive": "Inactive",
+  "standardValue": "Standard value",
+  "ProductName": "Product Name"
 }

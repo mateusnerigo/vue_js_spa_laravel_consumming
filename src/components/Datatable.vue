@@ -137,7 +137,7 @@ export default {
                 .forEach(statusElement => {
                     let status = statusElement.innerText;
                     statusElement.innerHTML = `
-                        <div class="datatable-status datatable-status-${(status == 0) ? 'inactive' : 'active'}"></div>
+                        <div class="datatable-status datatable-status-${(status == 0) ? 'inactive' : 'active'}">${(status == 0) ? this.$t("inactive") : this.$t("active")}</div>
                     `;
                 });
 
@@ -145,10 +145,12 @@ export default {
                 .querySelectorAll('.datatable-status')
                 .forEach(datatableStatusElement => {
                     let statusStyle = datatableStatusElement.style;
-                    statusStyle.height = '1rem';
-                    statusStyle.width = '1rem';
-                    statusStyle.padding = '0';
-                    statusStyle.borderRadius = '50%';
+                    statusStyle.padding = '0.25rem';
+                    statusStyle.borderRadius = '0.25rem';
+                    statusStyle.textAlign = 'center';
+                    statusStyle.color = 'white';
+
+
 
                     let statusClassList = datatableStatusElement.classList
                     if (statusClassList.contains('datatable-status-active')) {
@@ -177,11 +179,12 @@ export default {
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        margin: 2rem 0 1rem;
         flex: 1 1;
     }
 
     .table-filters-container {
+        margin: 2rem 0 1rem;
+
         .filter-results-container,
         .search-box {
             display: flex;
@@ -228,6 +231,7 @@ export default {
     .table-listing-container {
         font-size: 0.85rem;
         padding: 0.5rem 0;
+        margin-top: 1rem;
         border-top: 1px solid $dark_white;
 
         background-color: $white;
@@ -250,11 +254,27 @@ export default {
             th {
                 text-transform: capitalize;
                 text-align: left;
-                padding: 0.5rem;
+                padding: 0.5rem 0;
                 color: $dark_gray;
                 border-bottom: 1px solid $dark_white;
 
+                &.datatable-status-header,
+                &.datatable-id-header {
+                    width: 5rem;
+                    min-width: 5rem;
+                }
+
+                &.datatable-name-header,
+                &.datatable-lastUpdate-header {
+                    min-width: 10rem;
+                }
+
+                &.datatable-lastUpdate-header {
+                    width: 10rem;
+                }
+
                 &.datatable-actions-header {
+                    min-width: 8rem;
                     width: 8rem;
                 }
             }
@@ -262,7 +282,8 @@ export default {
 
         tbody {
             tr {
-                transition: .2s ease-in-out;
+                transition: .15s ease-out;
+                padding: 0.15rem 0.5rem;
 
                 &:hover {
                     background-color: $transparent_dark_white;
@@ -270,7 +291,11 @@ export default {
 
                 td {
                     color: $dark_gray;
-                    padding: 0.15rem 0.5rem;
+
+                    &.datatable-status-data {
+                        padding: 0 0.75rem 0 0;
+                        font-size: 0.75rem
+                    }
                 }
             }
         }

@@ -3,11 +3,14 @@
 
   <transition name="alert-transition">
     <AlertComponent
-        v-show="$store.state.isAlertActive"
-        :alertText="$store.state.alertText"
-        :alertType="$store.state.alertType"
+        v-show="$store.state.alertProps.isActive"
+        :alertText="$store.state.alertProps.texts"
+        :alertType="$store.state.alertProps.type"
     />
+  </transition>
 
+  <transition name="modal-fade" appear>
+    <ConfirmModal v-if="$store.state.confirmModalProps.isActive" />
   </transition>
 
   <transition name="circle-loading-full-page-transition">
@@ -25,13 +28,15 @@
 import AlertComponent from './components/AlertComponent.vue';
 import Sidebar from './components/Sidebar.vue';
 import CircleLoading from './components/CircleLoading.vue';
+import ConfirmModal from './components/ConfirmModal.vue';
 
 export default ({
   components: {
     Sidebar,
     AlertComponent,
-    CircleLoading
-}
+    CircleLoading,
+    ConfirmModal
+  }
 })
 </script>
 

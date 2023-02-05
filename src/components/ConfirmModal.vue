@@ -1,10 +1,10 @@
 <template>
     <Modal
-        :headerText="$t($store.state.confirmModalTitle)"
+        :headerText="$t($store.state.confirmModalProps.title)"
         :size="'sm'"
         :confirmButtonOptions="this.confirmButtonOptions"
         :cancelButtonOptions="this.cancelButtonOptions"
-        @emitCallback="this.$store.dispatch($store.state.confirmModalCallback)"
+        @emitCallback="this.$store.dispatch($store.state.confirmModalProps.callbackFn)"
     >
         <div class="confirm-modal-body">
             <div class="confirm-modal-icon">
@@ -12,7 +12,7 @@
             </div>
 
             <div class="confirm-modal-text">
-                {{ $t($store.state.confirmModalText) }}
+                {{ $t($store.state.confirmModalProps.text) }}
             </div>
         </div>
     </Modal>

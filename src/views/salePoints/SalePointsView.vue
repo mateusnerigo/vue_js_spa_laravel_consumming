@@ -12,7 +12,7 @@
         </div>
 
         <Datatable
-            :registers="$store.state.salePoints"
+            :registers="$store.state.registers.salePoints"
             :identifier="this.identifier"
             :textFields="this.textFields"
         />
@@ -24,13 +24,6 @@
                 :registerData="this.modalData"
             />
         </transition>
-
-        <transition name="modal-fade" appear>
-            <ConfirmModal
-                v-if="$store.state.isConfirmModalActive"
-            />
-        </transition>
-
     </div>
 </template>
 
@@ -38,14 +31,12 @@
 import Datatable from '@/components/Datatable.vue';
 import IconButton from '@/components/IconButton.vue';
 import SalePointModal from '@/components/SalePointModal.vue';
-import ConfirmModal from '@/components/ConfirmModal.vue';
 
 export default {
     name: 'SalePointsView',
     components: {
         Datatable,
         SalePointModal,
-        ConfirmModal,
         IconButton
     },
     data() {
@@ -63,8 +54,6 @@ export default {
             modalType: '',
             modalData: {},
             salePointData: {},
-            confirmModalTitle: '',
-            confirmModalText: '',
             addRegisterText: this.$t("New")
         }
     },
