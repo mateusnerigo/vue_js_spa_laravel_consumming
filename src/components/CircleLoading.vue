@@ -2,14 +2,8 @@
     <div class="circle-loading-container"
         :class="{'full-page': fullPage}">
         <div class="circle-loading">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div>
         </div>
     </div>
 </template>

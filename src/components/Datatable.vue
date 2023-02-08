@@ -15,7 +15,7 @@
 
             <div class="search-box">
                 <span class="material-symbols-outlined">search</span>
-                <input
+                <input 
                     type="text"
                     :placeholder="$t('search')"
                     v-model="this.searchField"

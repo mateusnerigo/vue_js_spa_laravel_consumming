@@ -54,6 +54,7 @@ export default ({
   #app {
     height: 100vh;
     background: $white;
+    color: $black;
     overflow-x: hidden;
 
     display: flex;

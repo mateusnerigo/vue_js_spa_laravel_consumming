@@ -1,94 +1,55 @@
 <template>
-    <div class="page-container">
-        <div class="page-container-header">
-            <h1>{{ $t("SalePoints") }}</h1>
-
-            <IconButton
-                :icon="'add'"
-                :text="'add'"
-                :innerText="this.addRegisterText"
-                @click="this.showModal('New')"
-            />
-        </div>
-
-        <Datatable
-            :registers="$store.state.registers.salePoints"
-            :identifier="this.identifier"
-            :textFields="this.textFields"
+        <DatatablePage
+        :headerTitle="this.headerTitle"
+        :registersKey="'salePoints'"
+        :identifier="'idSalePoints'"
+        :nameField="'salePointName'"
+        :datatableTextFields="this.datatableTextFields"
+        :callbackUpdateDatatableOptions="'setSalePointsDatatableOptions'"
+        @showModal="showModal"
+        @toggleRegister="toggleRegister"
+        @getRegisters="getSalePoints"
+    >
+        <SalePointModal
+            v-if="$store.state.isModalActive"
+            :type="this.modalType"
+            :registerData="this.modalData"
         />
-
-        <transition name="modal-fade" appear>
-            <SalePointModal
-                v-if="$store.state.isModalActive"
-                :type="this.modalType"
-                :registerData="this.modalData"
-            />
-        </transition>
-    </div>
+    </DatatablePage>
 </template>
 
 <script>
-import Datatable from '@/components/Datatable.vue';
-import IconButton from '@/components/IconButton.vue';
+import DatatablePage from '@/components/DatatablePage.vue';
 import SalePointModal from '@/components/SalePointModal.vue';
 
 export default {
     name: 'SalePointsView',
     components: {
-        Datatable,
-        SalePointModal,
-        IconButton
+        DatatablePage,
+        SalePointModal
     },
     data() {
         return {
-            identifier: 'idSalePoints',
-            textFields: [
+            headerTitle: this.$t('SalePoints'),
+            datatableTextFields: [
                 { 'name': 'status', 'field': 'isActive'} ,
                 { 'name': 'id', 'field': 'idSalePoints' },
                 { 'name': 'name', 'field': 'salePointName' },
                 { 'name': 'lastUpdate', 'field': 'updatedAt' }
             ],
-            dtPage: 1,
-            dtPerPage: 10,
-            dtSearch: '',
             modalType: '',
             modalData: {},
             salePointData: {},
-            addRegisterText: this.$t("New")
         }
     },
-
-    created() {
-        this.getSalePoints();
-    },
-
-    watch: {
-        dtPage(newDtPage) {
-            this.getSalePoints(true);
-        },
-
-        dtPerPage(newDtPerPage) {
-            this.getSalePoints(true);
-        },
-
-        dtSearch(newDtSearch) {
-            this.getSalePoints(true);
-        }
-    },
-
     methods: {
         getSalePoints(updateList = false) {
-            this.$store.dispatch('setSalePointsDatatableOptions', {
-                page: this.dtPage,
-                perPage: this.dtPerPage,
-                search: this.dtSearch
-            })
             this.$store.dispatch('getSalePoints', updateList);
         },
 
-        showModal(type, data) {
-            this.modalData = data;
-            this.modalType = type;
+        showModal(data) {
+            this.modalData = data.data;
+            this.modalType = data.type;
 
             this.$store.dispatch('toggleModal', 1);
         },
@@ -98,32 +59,6 @@ export default {
                 idSalePoints: registerData.idSalePoints,
                 isActive: registerData.isActive
             };
-        },
-
-        showConfirmModal(salePointData, type) {
-            this.$store.dispatch('setConfirmModalData', {
-                type,
-                callback: 'toggleRegister',
-                data: {
-                    registerIdToToggle: salePointData.idSalePoints,
-                    registerName: salePointData.salePointName,
-                    registerStatus: salePointData.isActive,
-                    route: 'salePoints'
-                }
-            });
-            this.$store.dispatch('toggleConfirmModal', 1);
-        },
-
-        updateDtPage(newDtPage) {
-            this.dtPage = newDtPage;
-        },
-
-        updateDtPerPage(newDtPerPage) {
-            this.dtPerPage = newDtPerPage;
-        },
-
-        updateDtSearch(newDtSearch) {
-            this.dtSearch = newDtSearch;
         }
     }
 }
