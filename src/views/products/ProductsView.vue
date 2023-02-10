@@ -7,8 +7,7 @@
         :nameField="'productName'"
         :datatableTextFields="this.datatableTextFields"
         :callbackUpdateDatatableOptions="'setProductsDatatableOptions'"
-        @showModal="showModal"
-        @getRegisters="getProducts"
+        @showModal="showProductsModal"
     >
         <ProductModal
             v-if="$store.state.isModalActive"
@@ -43,11 +42,7 @@ export default {
        }
     },
     methods: {
-        getProducts(updateList = false) {
-            this.$store.dispatch('getProducts', updateList);
-        },
-
-        showModal(data) {
+        showProductsModal(data) {
             this.modalData = data.data;
             this.modalType = data.type;
 

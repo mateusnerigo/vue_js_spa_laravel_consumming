@@ -7,8 +7,7 @@
         :nameField="'salePointName'"
         :datatableTextFields="this.datatableTextFields"
         :callbackUpdateDatatableOptions="'setSalePointsDatatableOptions'"
-        @showModal="showModal"
-        @getRegisters="getSalePoints"
+        @showModal="showSalePointsModal"
     >
         <SalePointModal
             v-if="$store.state.isModalActive"
@@ -42,11 +41,7 @@ export default {
         }
     },
     methods: {
-        getSalePoints(updateList = false) {
-            this.$store.dispatch('getSalePoints', updateList);
-        },
-
-        showModal(data) {
+        showSalePointsModal(data) {
             this.modalData = data.data;
             this.modalType = data.type;
 

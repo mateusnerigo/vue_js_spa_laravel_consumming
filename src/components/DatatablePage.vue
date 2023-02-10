@@ -74,7 +74,7 @@ export default {
        }
     },
     created() {
-        this.$emit('getRegisters');
+        this.getRegisters();
     },
 
     watch: {
@@ -84,7 +84,7 @@ export default {
                 perPage: this.dtPerPage,
                 search: this.dtSearch
             })
-            this.$emit('getRegisters', true);
+            this.getRegisters(true);
         },
 
         dtPerPage(newDtPerPage) {
@@ -93,7 +93,7 @@ export default {
                 perPage: this.dtPerPage,
                 search: this.dtSearch
             })
-            this.$emit('getRegisters', true);
+            this.getRegisters(true);
         },
 
         dtSearch(newDtSearch) {
@@ -102,13 +102,23 @@ export default {
                 perPage: this.dtPerPage,
                 search: this.dtSearch
             })
-            this.$emit('getRegisters', true);
+            this.getRegisters(true);
         }
     },
 
     methods: {
+        getRegisters(updateDatatable = false) {
+            this.$store.dispatch(
+                this.registersGetter,
+                updateDatatable
+            );
+        },
+
         showModal(type, data) {
-            this.$emit('showModal', { data, type });
+            this.$emit(
+                'showModal',
+                { data, type }
+            );
         },
 
         showConfirmModal(registerData, type) {
@@ -126,7 +136,7 @@ export default {
             this.$store.dispatch('toggleConfirmModal', 1);
         },
 
-        updateDtPage(newDtPage) {
+        updateDtPage (newDtPage) {
             this.dtPage = newDtPage;
         },
 
