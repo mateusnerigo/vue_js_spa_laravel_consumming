@@ -73,19 +73,4 @@ export default {
             return;
         }
     },
-
-    handleConfirmModalTexts(type) {
-        let title = '';
-        let text = '';
-
-        if (type == 'activate') {
-            title = "ActivateRegister";
-            text = "onConfirmThisRegisterWillBeAbleForUseAndEdits";
-        } else if (type == 'deactivate') {
-            title = "DeactivateRegister";
-            text = "onConfirmThisRegisterWillNotBeAbleForUseOrEdits";
-        }
-
-        store.dispatch('updateConfirmModal', { title, text });
-    }
 }

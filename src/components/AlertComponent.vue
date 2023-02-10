@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div
     :class="this.alertType"
     class="alert-container"
@@ -10,7 +10,7 @@
     <div class="alert-body">
       <p class="alert-title">{{ $t(this.alertType) }}</p>
       <span v-for="(text, index) in this.alertText" :key="`text-${index}`">
-        {{ $t(text) }}
+        {{ (text.translate === false) ? text.raw : $t(text) }}
       </span>
     </div>
   </div>

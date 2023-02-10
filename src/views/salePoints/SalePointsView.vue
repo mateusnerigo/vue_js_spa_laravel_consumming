@@ -1,13 +1,13 @@
 <template>
-        <DatatablePage
+    <DatatablePage
         :headerTitle="this.headerTitle"
         :registersKey="'salePoints'"
+        :registersGetter="'getSalePoints'"
         :identifier="'idSalePoints'"
         :nameField="'salePointName'"
         :datatableTextFields="this.datatableTextFields"
         :callbackUpdateDatatableOptions="'setSalePointsDatatableOptions'"
         @showModal="showModal"
-        @toggleRegister="toggleRegister"
         @getRegisters="getSalePoints"
     >
         <SalePointModal
@@ -39,7 +39,6 @@ export default {
             ],
             modalType: '',
             modalData: {},
-            salePointData: {},
         }
     },
     methods: {
@@ -53,13 +52,6 @@ export default {
 
             this.$store.dispatch('toggleModal', 1);
         },
-
-        toggleRegister(registerData) {
-            this.salePointData = {
-                idSalePoints: registerData.idSalePoints,
-                isActive: registerData.isActive
-            };
-        }
     }
 }
 </script>

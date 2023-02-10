@@ -2,12 +2,12 @@
     <DatatablePage
         :headerTitle="this.headerTitle"
         :registersKey="'products'"
+        :registersGetter="'getProducts'"
         :identifier="'idProducts'"
         :nameField="'productName'"
         :datatableTextFields="this.datatableTextFields"
         :callbackUpdateDatatableOptions="'setProductsDatatableOptions'"
         @showModal="showModal"
-        @toggleRegister="toggleRegister"
         @getRegisters="getProducts"
     >
         <ProductModal
@@ -40,19 +40,11 @@ export default {
            ],
            modalType: '',
            modalData: {},
-           productData: {},
        }
     },
     methods: {
         getProducts(updateList = false) {
             this.$store.dispatch('getProducts', updateList);
-        },
-
-        toggleRegister(registerData) {
-            this.productData = {
-                idProducts: registerData.idProducts,
-                isActive: registerData.isActive
-            };
         },
 
         showModal(data) {

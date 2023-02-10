@@ -44,6 +44,10 @@ export default {
             type: String,
             required: true
         },
+        registersGetter: {
+            type: String,
+            required: true
+        },
         identifier: {
             type: String,
             required: true
@@ -107,10 +111,6 @@ export default {
             this.$emit('showModal', { data, type });
         },
 
-        toggleRegister(registerData) {
-            this.$emit('toggleRegister', registerData);
-        },
-
         showConfirmModal(registerData, type) {
             this.$store.dispatch('setConfirmModalData', {
                 type,
@@ -119,6 +119,7 @@ export default {
                     registerIdToToggle: registerData[this.identifier],
                     registerName: registerData[this.nameField],
                     registerStatus: registerData.isActive,
+                    registersGetter: this.registersGetter,
                     route: this.registersKey
                 }
             });

@@ -26,9 +26,19 @@ export default {
         commit('updateConfirmModal', modalData);
     },
 
-    setConfirmModalData({ commit }, callbackData) {
-        generalFunctions.handleConfirmModalTexts(callbackData.type);
+    setConfirmModalData({ commit, dispatch }, callbackData) {
+        let title = '';
+        let text = '';
 
+        if (callbackData.type == 'activate') {
+            title = "ActivateRegister";
+            text = "onConfirmThisRegisterWillBeAbleForUseAndEdits";
+        } else if (callbackData.type == 'deactivate') {
+            title = "DeactivateRegister";
+            text = "onConfirmThisRegisterWillNotBeAbleForUseOrEdits";
+        }
+
+        dispatch('updateConfirmModal', { title, text });
         commit('updateConfirmModalCallbackData', callbackData);
     },
 
@@ -116,14 +126,18 @@ export default {
                 }
             },
         ).then(response => {
-            dispatch('getProducts', true);
+            dispatch(registerData.registersGetter, true);
 
             const alertText = (registerData.registerStatus)
                 ? "deactivatedSuccessfully"
                 : "activatedSuccessfully"
 
             dispatch('updateAlert', {
-                'text': [registerData.registerName, " ", alertText],
+                'text': [
+                    {'raw': registerData.registerName, 'translate': false},
+                    " ",
+                    alertText
+                ],
                 'type': 'success'
             })
             dispatch('toggleAlert', 1);
