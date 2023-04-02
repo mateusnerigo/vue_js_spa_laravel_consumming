@@ -15,7 +15,7 @@
 
             <div class="search-box">
                 <span class="material-symbols-outlined">search</span>
-                <input 
+                <input
                     type="text"
                     :placeholder="$t('search')"
                     v-model="this.searchField"
@@ -70,7 +70,7 @@
             <div class="results-pages-container">
                 <button
                     v-for="n in registers.last_page"
-                    :class="`${n == registers.current_page && 'actual-page'}`"
+                    :class="`${(n == registers.current_page) && 'actual-page'}`"
                     class="pages-available"
                     @click="updatePageDataTable(n)"
                 >
@@ -105,14 +105,18 @@ export default {
     },
 
     created() {
-        this.updatePageDataTable(1);
+        this.updatePageDataTable(this.registers.current_page);
+    },
+
+    mounted() {
+        this.handleDatatableStatus();
     },
 
     updated() {
         this.handleDatatableStatus();
 
         if (this.registers.current_page > this.registers.last_page) {
-            this.updatePageDataTable(1);
+            this.updatePageDataTable(this.registers.current_page);
         }
     },
 
@@ -135,9 +139,12 @@ export default {
             document
                 .querySelectorAll('.datatable-status-data')
                 .forEach(statusElement => {
-                    let status = statusElement.innerText;
+                    let status = (statusElement.innerText == 0) ? "inactive" : "active";
+
                     statusElement.innerHTML = `
-                        <div class="datatable-status datatable-status-${(status == 0) ? 'inactive' : 'active'}">${(status == 0) ? this.$t("inactive") : this.$t("active")}</div>
+                        <div class="datatable-status datatable-status-${status}">
+                            ${this.$t(status)}
+                        </div>
                     `;
                 });
 
@@ -149,8 +156,6 @@ export default {
                     statusStyle.borderRadius = '0.25rem';
                     statusStyle.textAlign = 'center';
                     statusStyle.color = 'white';
-
-
 
                     let statusClassList = datatableStatusElement.classList
                     if (statusClassList.contains('datatable-status-active')) {
