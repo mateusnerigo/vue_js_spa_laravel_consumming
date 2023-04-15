@@ -2,8 +2,8 @@
     <div class="datatable-container">
         <div class="table-filters-container">
             <div class="filter-results-container">
-                <select class="filters-results" v-model="this.perPageField">
-                    <option value="10" selected>10</option>
+                <select class="filter-results" id="filter-results" v-model="this.perPageField">
+                    <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
@@ -98,14 +98,16 @@ export default {
 
     data() {
         return {
-            perPageField: 10,
-            searchField: '',
-            actualPage: 1
+            perPageField: this.registers.per_page ?? 10,
+            searchField: this.registers.search ?? null,
+            actualPage: this.registers.current_page ?? 1
         }
     },
 
     created() {
+        console.log(this.registers)
         this.updatePageDataTable(this.registers.current_page);
+        this.updateSearchDataTable(this.registers.search);
     },
 
     mounted() {
@@ -126,7 +128,7 @@ export default {
         },
 
         searchField(newSearch) {
-            this.$parent.updateDtSearch(newSearch);
+            this.updateSearchDataTable(newSearch);
         },
     },
 
@@ -135,11 +137,15 @@ export default {
             this.$parent.updateDtPage(newPage);
         },
 
+        updateSearchDataTable(newSearch) {
+            this.$parent.updateDtSearch(newSearch);
+        },
+
         handleDatatableStatus() {
             document
                 .querySelectorAll('.datatable-status-data')
                 .forEach(statusElement => {
-                    let status = (statusElement.innerText == 0) ? "inactive" : "active";
+                    const status = (statusElement.innerText == 0) ? "inactive" : "active";
 
                     statusElement.innerHTML = `
                         <div class="datatable-status datatable-status-${status}">
@@ -151,13 +157,13 @@ export default {
             document
                 .querySelectorAll('.datatable-status')
                 .forEach(datatableStatusElement => {
-                    let statusStyle = datatableStatusElement.style;
+                    const statusStyle = datatableStatusElement.style;
                     statusStyle.padding = '0.25rem';
                     statusStyle.borderRadius = '0.25rem';
                     statusStyle.textAlign = 'center';
                     statusStyle.color = 'white';
 
-                    let statusClassList = datatableStatusElement.classList
+                    const statusClassList = datatableStatusElement.classList
                     if (statusClassList.contains('datatable-status-active')) {
                         statusStyle.background = '#33d9b2';
                     } else if (statusClassList.contains('datatable-status-inactive')) {
@@ -201,7 +207,7 @@ export default {
             justify-content: start;
             align-items: center;
 
-            .filters-results {
+            .filter-results {
                 width: 3.5rem;
                 text-align: right;
             }
